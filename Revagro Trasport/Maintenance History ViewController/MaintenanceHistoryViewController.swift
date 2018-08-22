@@ -62,7 +62,8 @@ class MaintenanceHistoryViewController: UIViewController {
     var arrLames = [String]()
     var arrVerrins = [String]()
     var arrTuyaucHydraulics = [String]()
-    var arrGraissage = [String]()
+    var arrGraissageLabel = [String]()
+    var arrGraissageTextField = [String]()
     var arrCardans = [String]()
     var arrCleaningTruck = [String]()
     var image = UIImage()
@@ -79,12 +80,16 @@ class MaintenanceHistoryViewController: UIViewController {
         fetchLamesData()
         fetchPneusData()
         fetchCardansData()
-        fetchCardansData()
         fetchVerrinsData()
         fetchGraissageData()
         fetchHydraulicData()
         fetchCarroseriesData()
         fetchLiquidLevelData()
+        fetchTruckCleaningData()
+        
+        let viewForSepration = UIView(frame: CGRect(x: Int(self.calendarView.frame.size.width / 2), y: Int(self.calendarView.frame.size.height + 20), width: 1, height: 80))
+        viewForSepration.backgroundColor = UIColor.white
+        self.calendarView.addSubview(viewForSepration)
     }
     
     //MARK:- FUNCTION HANDLE TAB GESTURE
@@ -111,25 +116,23 @@ class MaintenanceHistoryViewController: UIViewController {
     
     //MARK:- FETCH FUEL DATA FROM FIREBASE
     func fetchFuelData(){
-        HUD.show(.progress)
-        self.arrFuelData.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text!).child(Constants.NODE_FUEL).observe(.value) { (snapshot) in
+            
+            self.arrFuelData.removeAll()
             print(snapshot)
             //var arrFuelData:[String] = ["Counter storage tank for refueling : 100", "Fuel quantity refueled : 90", "Counter storage tank after refueling : 90"]
             if let dictionary = snapshot.value as? [String: AnyObject]{
                 if let fuelRefueled = dictionary["fuel_quantity_refueled"] as? String{
-                    print(fuelRefueled)
                     self.arrFuelData.append("Fuel quantity refueled : \(fuelRefueled)")
                 }
                 if let afterRefueling = dictionary["tank_after_refueling"] as? String{
-                    print(afterRefueling)
                     self.arrFuelData.append("Counter storage tank after refueling : \(afterRefueling)")
                 }
                 if let forRefueling = dictionary["tank_for_refueling"] as? String{
-                    print(forRefueling)
                     self.arrFuelData.append("Counter storage tank for refueling : \(forRefueling)")
                 }
             }
@@ -140,12 +143,12 @@ class MaintenanceHistoryViewController: UIViewController {
     
     //MARK:- FETCH LIQUID LEVEL DATA FROM FIREBASE
     func fetchLiquidLevelData(){
-        HUD.show(.progress)
-        self.arrLevelOfLiquid.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text!).child(Constants.NODE_LIQUID_LEVEL).observe(.value) { (snapshot) in
+            self.arrLevelOfLiquid.removeAll()
             print(snapshot)
             //var arrLevelOfLiquid:[String] = ["Engine oil : 20", "Hydraulic oil : 10", "Liquid cooling : 25", "Directional oil : 5", "Washing Machine : 15" ]
             if let dictionary = snapshot.value as? [String: AnyObject]{
@@ -176,14 +179,19 @@ class MaintenanceHistoryViewController: UIViewController {
         
     }
     
+    
+    func deleteCarroseriesData(){
+        
+    }
+    
     //MARK:- FETCH CARROSERIES DATA FROM FIREBASE
     func fetchCarroseriesData(){
-        HUD.show(.progress)
-        self.arrCarroseries.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text!).child(Constants.NODE_CARROSERIES).observe(.value) { (snapshot) in
+            self.arrCarroseries.removeAll()
             print(snapshot)
             
             if let dictionary = snapshot.value as? [String: AnyObject]{
@@ -193,26 +201,30 @@ class MaintenanceHistoryViewController: UIViewController {
                 }
                 if let url = dictionary["upload_photo"] as? String  {
                     print(url)
-                    let photorUrl = URL(string: url)
-                    let session = URLSession(configuration: .default)
-                    let downloadTask = session.dataTask(with: photorUrl!) {(data, response, error) in
-                        
-                        if let error = error{
-                            print(error.localizedDescription)
-                        } else {
-                            if let res = response as? HTTPURLResponse{
-                                print(res.statusCode)
-                            }
-                            if let imageData = data {
-                                let imagee = UIImage(data: imageData)
-                                print(imagee?.size)
-                                self.image = imagee ?? UIImage()
-                                
+                    let photoUrl = URL(string: url)
+                    print(photoUrl)
+                    
+                    if photoUrl == nil {
+                        self.deleteCarroseriesData()
+                        //AppUtils.showAlert(title: "Alert", message: "message", viewController: self)
+                    } else {
+                        let session = URLSession(configuration: .default)
+                        let downloadTask = session.dataTask(with: photoUrl!) {(data, response, error) in
+                            if let error = error{
+                                print(error.localizedDescription)
+                            } else {
+                                if let res = response as? HTTPURLResponse{
+                                    print(res.statusCode)
+                                }
+                                if let imageData = data {
+                                    let imagee = UIImage(data: imageData)
+                                    self.image = imagee ?? UIImage()
+                                }
                             }
                         }
-                        
+                        downloadTask.resume()
                     }
-                    downloadTask.resume()
+                    
                 }
             }
             HUD.hide()
@@ -222,13 +234,13 @@ class MaintenanceHistoryViewController: UIViewController {
     
     //MARK:- FETCH PNEUS DATA FROM FIREBASE
     func fetchPneusData(){
-        HUD.show(.progress)
-        self.arrPneus.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
-       //var arrPneus:[String] = ["1 ess. AV :" , "Gauche : 14" , "Droit : 14" , "2 ess. AV :" , "Gauche : 14" , "Droit : 15" , "1 ess. AR :" , "Gauche : 15" , "Gauche Droit : 12" , "Droit Gauche : 14" , "Droit Droit : 15"]
+        
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_PNEUS).observe(.value) { (snapshot) in
+            self.arrPneus.removeAll()
             print(snapshot)
             
             if let dictionary = snapshot.value as? [String: AnyObject]{
@@ -261,7 +273,7 @@ class MaintenanceHistoryViewController: UIViewController {
                     
                 }
                 if let url = dictionary["photo_url"] as? String{
-                 print(url)
+                    print(url)
                 }
             }
             HUD.hide()
@@ -270,12 +282,13 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH FEUX DATA FROM FIREBASE
     func fetchFeuxData(){
-        HUD.show(.progress)
-        self.arrFeux.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
-    ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_FEUX).observe(.value) { (snapshot) in
+        ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_FEUX).observe(.value) { (snapshot) in
+            
+            self.arrFeux.removeAll()
             if let dictionary = snapshot.value as? [String: AnyObject]{
                 if let lineOne = dictionary["av_gauche"] as? String{
                     self.arrFeux.append("AV Gauche : \(lineOne)")
@@ -291,17 +304,17 @@ class MaintenanceHistoryViewController: UIViewController {
                     self.arrFeux.append(" ARR Droit : \(lineFour)")
                 }
             }
-        HUD.hide()
-        self.tableVieww.reloadData()
+            HUD.hide()
+            self.tableVieww.reloadData()
         }
     }
     //MARK:- FETCH LAMES DATA FROM FIREBASE
     func fetchLamesData(){
-        HUD.show(.progress)
-        self.arrLames.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_LAMES).observe(.value) { (snapshot) in
+            self.arrLames.removeAll()
             print(snapshot)
             
             if let dictionary = snapshot.value as? [String: AnyObject]{
@@ -324,18 +337,18 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH VERRINS DATA FROM FIREBASE
     func fetchVerrinsData(){
-        HUD.show(.progress)
-        self.arrVerrins.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_VERRINS).observe(.value) { (snapshot) in
+            self.arrVerrins.removeAll()
             print(snapshot)
             if let dict = snapshot.value as? [String: AnyObject]{
                 if let one = dict["central_benne"] as? Bool{
-                self.arrVerrins.append("Central Bene : \(one)")
+                    self.arrVerrins.append("Central Bene : \(one)")
                 }
                 if let two = dict["port_gauche"] as? Bool{
-                   self.arrVerrins.append("Porte Gauche : \(two)")
+                    self.arrVerrins.append("Porte Gauche : \(two)")
                 }
                 if let three = dict["port_droit"] as? Bool{
                     self.arrVerrins.append("Porte Droit : \(three)")
@@ -347,12 +360,13 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH HYDRAULIC DATA FROM FIREBASE
     func fetchHydraulicData(){
-        HUD.show(.progress)
-        self.arrTuyaucHydraulics.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
+        
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_HYDRAULICS_TUYAUX).observe(.value) { (snapshot) in
             print(snapshot)
+            self.arrTuyaucHydraulics.removeAll()
             if let dict = snapshot.value as? [String: AnyObject]{
                 if let hydraulic = dict["hydraulics"] as? Bool{
                     self.arrTuyaucHydraulics.append("Tuyaux Hydraulics : \(hydraulic)")
@@ -365,64 +379,46 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH GRAISSAGE DATA FROM FIREBASE
     func fetchGraissageData(){
-        HUD.show(.progress)
-        self.arrGraissage.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
-       
-        ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_HYDRAULICS_TUYAUX).observe(.value) { (snap) in
+        
+        ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_GRAISSAGE).observe(.value) { (snap) in
+            self.arrGraissageLabel.removeAll()
             print(snap)
             if let dict = snap.value as? [String: AnyObject]{
                 if let one = dict["crochet_bene"] as? Bool{
-                    self.arrGraissage.append("Crochet bene : \(one)")
+                    self.arrGraissageLabel.append("Crochet bene : \(one)")
                 }
                 if let two = dict["bras_securite_gauche"] as? Bool{
-                   self.arrGraissage.append("Bras securite gauche : \(two)")
+                    self.arrGraissageLabel.append("Bras securite gauche : \(two)")
                 }
                 if let three = dict["bras_securite_droit"] as? Bool{
-                    self.arrGraissage.append("Bras securite droit : \(three)")
+                    self.arrGraissageLabel.append("Bras securite droit : \(three)")
                 }
                 if let ligne1 = dict["ligne 1"] as? String{
-                   self.arrGraissage.append("Ligne 1 : \(ligne1)")
+                    self.arrGraissageLabel.append("Ligne 1 : \(ligne1)")
                 }
                 if let ligne2 = dict["ligne 2"] as? String{
-                 self.arrGraissage.append("Ligne 2 : \(ligne2)")
+                    self.arrGraissageLabel.append("Ligne 2 : \(ligne2)")
                 }
                 if let compas = dict["compas"] as? String{
-                    self.arrGraissage.append("Compas : \(compas)")
+                    self.arrGraissageLabel.append("Compas : \(compas)")
                 }
             }
             HUD.hide()
-            
             self.tableVieww.reloadData()
         }
         
     }
     //MARK:- FETCH CARDAN DATA FROM FIREBASE
     func fetchCardansData(){
-        HUD.show(.progress)
-        self.arrCardans.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
-//        ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_CARDAN).observe(.value) { (snapshot) in
-//            print(snapshot)
-//            if let dict = snapshot.value as? [String: AnyObject]{
-//                if let cardan1 = dict["cardan1"] as? Bool{
-//                    self.arrCardans.append("Cardan 1 : \(cardan1)")
-//                }
-//                if let cardan2 = dict["cardan2"] as? Bool{
-//                    self.arrCardans.append("Cardan 2 : \(cardan2)")
-//                }
-//                if let cardan3 = dict["cardan3"] as? Bool{
-//                    self.arrCardans.append("Cardan 3 : \(cardan3)")
-//                }
-//            }
-//            HUD.hide()
-//            self.tableVieww.reloadData()
-//        }
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_CARDAN).observeSingleEvent(of: .value) { (snap) in
             print(snap)
-            
+            self.arrCardans.removeAll()
             if let dict = snap.value as? [String: AnyObject]{
                 if let cardan1 = dict["cardan1"] as? Bool{
                     self.arrCardans.append("Cardan 1 : \(cardan1)")
@@ -441,12 +437,12 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH TRUCK CLEANING DATA FROM FIREBASE
     func fetchTruckCleaningData(){
-        HUD.show(.progress)
-        self.arrCleaningTruck.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_CLEANING_TRUCK).observe(.value) { (snap) in
             print(snap)
+            self.arrCleaningTruck.removeAll()
             if let dict = snap.value as? [String: AnyObject] {
                 if let ccb = dict["ccb"] as? Bool{
                     self.arrCleaningTruck.append("CCB : \(ccb)")
@@ -461,12 +457,12 @@ class MaintenanceHistoryViewController: UIViewController {
     }
     //MARK:- FETCH CABIN DATA FROM FIREBASE
     func fetchCabinData(){
-        HUD.show(.progress)
-        self.arrCabin.removeAll()
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child(self.lastMaintenanceDateLbl.text ?? "").child(Constants.NODE_CABIN).observe(.value) { (snap) in
+            self.arrCabin.removeAll()
             print(snap)
             if let dict = snap.value as? [String: AnyObject]{
                 if let one = dict["essuies_glace"] as? Bool {
@@ -535,7 +531,7 @@ extension MaintenanceHistoryViewController: UITableViewDataSource, UITableViewDe
         case 7:
             return arrTuyaucHydraulics.count
         case 8:
-            return arrGraissage.count
+            return arrGraissageLabel.count
         case 9:
             return arrCardans.count
         case 10:
@@ -551,27 +547,54 @@ extension MaintenanceHistoryViewController: UITableViewDataSource, UITableViewDe
         
         
         if  (indexPath.section == 0) {
-            cell.fieldNameLbl.text = arrFuelData[indexPath.row]
+            //attributed string and seprate string into two parts
+            if let range = arrFuelData[indexPath.row].range(of: " : ") {
+                let upperbound = arrFuelData[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrFuelData[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrFuelData[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 1) {
-            cell.fieldNameLbl.text = arrLevelOfLiquid[indexPath.row]
+            if let range = arrLevelOfLiquid[indexPath.row].range(of: " : ") {
+                let upperbound = arrLevelOfLiquid[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrLevelOfLiquid[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrLevelOfLiquid[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrLevelOfLiquid[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
-        } else if (indexPath.section == 2){
-            cell.fieldNameLbl.text = arrCarroseries[indexPath.row]
-            cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
-            if indexPath.row == 0 {
-                cell.carroseriesImage.image = nil
-                cell.imageHeight.constant = 0
-            } else {
-                cell.carroseriesImage.image = self.image
-                cell.imageHeight.constant = 200
+        } else if (indexPath.section == 2) {
+            if let range = arrCarroseries[indexPath.row].range(of: " : ") {
+                let upperbound = arrCarroseries[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrCarroseries[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrCarroseries[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
             }
+            cell.carroseriesImage.clipsToBounds = true
+            //cell.carroseriesImage.frame = CGRect(x: 10, y: 40, width: 600, height: 200)
+            //cell.fieldNameLbl.text = arrCarroseries[indexPath.row]
+            cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
+            cell.carroseriesImage.image = self.image //UIImage.init(named: "profilePic")
+            cell.imageHeight.constant = 240
+            cell.imageHeight.priority = UILayoutPriority.init(999)
         } else if (indexPath.section == 3) {
             cell.fieldNameLbl.text = arrPneus[indexPath.row]
             cell.imageHeight.constant = 0
@@ -579,58 +602,150 @@ extension MaintenanceHistoryViewController: UITableViewDataSource, UITableViewDe
             cell.imageHeight.priority = UILayoutPriority.init(250)
             if cell.fieldNameLbl.text == "1 ess. AV :"{
                 cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_14
+                cell.fieldNameLbl.textColor = UIColor.black
             } else if cell.fieldNameLbl.text == "2 ess. AV :" {
                 cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_14
+                cell.fieldNameLbl.textColor = UIColor.black
             } else if cell.fieldNameLbl.text == "1 ess. AR :"{
                 cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_14
+                cell.fieldNameLbl.textColor = UIColor.black
             } else {
                 cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             }
+            
+            if let range = arrPneus[indexPath.row].range(of: " : ") {
+                let upperbound = arrPneus[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrPneus[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrPneus[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
         }
         else if (indexPath.section == 4) {
-            cell.fieldNameLbl.text = arrFeux[indexPath.row]
+            if let range = arrFeux[indexPath.row].range(of: " : ") {
+                let upperbound = arrFeux[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrFeux[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrFeux[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrFeux[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 5) {
-            cell.fieldNameLbl.text = arrLames[indexPath.row]
+            if let range = arrLames[indexPath.row].range(of: " : ") {
+                let upperbound = arrLames[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrLames[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrLames[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrLames[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 6) {
-            cell.fieldNameLbl.text = arrVerrins[indexPath.row]
+            if let range = arrVerrins[indexPath.row].range(of: " : ") {
+                let upperbound = arrVerrins[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrVerrins[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrVerrins[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrVerrins[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 7) {
-            cell.fieldNameLbl.text = arrTuyaucHydraulics[indexPath.row]
+            if let range = arrTuyaucHydraulics[indexPath.row].range(of: " : ") {
+                let upperbound = arrTuyaucHydraulics[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrTuyaucHydraulics[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrTuyaucHydraulics[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrTuyaucHydraulics[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 8) {
-            cell.fieldNameLbl.text = arrGraissage[indexPath.row]
+            if let range = arrGraissageLabel[indexPath.row].range(of: " : ") {
+                let upperbound = arrGraissageLabel[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrGraissageLabel[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrGraissageLabel[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrGraissageLabel[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 9) {
+            if let range = arrCardans[indexPath.row].range(of: " : ") {
+                let upperbound = arrCardans[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrCardans[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrCardans[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
             cell.fieldNameLbl.text = arrCardans[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 10) {
-            cell.fieldNameLbl.text = arrCleaningTruck[indexPath.row]
+            if let range = arrCleaningTruck[indexPath.row].range(of: " : ") {
+                let upperbound = arrCleaningTruck[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrCleaningTruck[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrCleaningTruck[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrCleaningTruck[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
             cell.imageHeight.priority = UILayoutPriority.init(250)
         } else if (indexPath.section == 11) {
-            cell.fieldNameLbl.text = arrCabin[indexPath.row]
+            if let range = arrCabin[indexPath.row].range(of: " : ") {
+                let upperbound = arrCabin[indexPath.row][range.upperBound...]
+                print(upperbound)
+                let attributedStr = NSMutableAttributedString.init(string: arrCabin[indexPath.row])
+                let colorAttributes = [NSAttributedStringKey.foregroundColor: RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR]
+                let location = NSRange.init(location: arrCabin[indexPath.row].count - upperbound.count, length: upperbound.count)
+                attributedStr.addAttributes(colorAttributes, range: location)
+                cell.fieldNameLbl.attributedText = attributedStr
+            }
+            
+            //cell.fieldNameLbl.text = arrCabin[indexPath.row]
             cell.fieldNameLbl.font = RevagroFonts.FONT_ARIAL_REGULAR_12
             cell.carroseriesImage.image = nil
             cell.imageHeight.constant = 0
@@ -704,7 +819,7 @@ extension MaintenanceHistoryViewController: UITableViewDataSource, UITableViewDe
     }
 }
 
-//MARK:- EXTENSION OF CALENDAR
+//MARK:- EXTENSION OF CALENDAR VIEW
 extension MaintenanceHistoryViewController: FSCalendarDelegate{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("select")
@@ -720,11 +835,26 @@ extension MaintenanceHistoryViewController: FSCalendarDelegate{
         self.fetchLamesData()
         self.fetchPneusData()
         self.fetchCardansData()
-        self.fetchCardansData()
         self.fetchVerrinsData()
         self.fetchGraissageData()
         self.fetchHydraulicData()
         self.fetchCarroseriesData()
         self.fetchLiquidLevelData()
+        self.fetchTruckCleaningData()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
+            self.innerView.isHidden = true
+        })
+    }
+}
+
+//MARK:- EXTENSION SWREVEAL VIEW CONTROLLER
+extension MaintenanceHistoryViewController: SWRevealViewControllerDelegate {
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == .right {
+            self.view.isUserInteractionEnabled = false
+        } else {
+            self.view.isUserInteractionEnabled = true
+        }
     }
 }

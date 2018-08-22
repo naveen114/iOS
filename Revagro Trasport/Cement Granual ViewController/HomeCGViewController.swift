@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import PKHUD
 
 
 protocol StartShiftVCBtnTitleDelegate {
     func btnTitle(change:String)
 }
 
-class HomeCGViewController: UIViewController , changeBtnImageDelegate{
+class HomeCGViewController: UIViewController , changeBtnImageDelegate, locationDataPassing{
+    
+    
     
     func btnImage(btnImage: UIImage) {
         self.pointageImageView.image = btnImage
@@ -36,8 +42,13 @@ class HomeCGViewController: UIViewController , changeBtnImageDelegate{
   
     var btnBackGroundImage:UIImage?
     var startShift: StartShift?
-   
+    var startShiftData: StartShiftData?
     var pointagevc: PointageVC?
+    var ref: DatabaseReference!
+    var loadLocation = String()
+    var looseLoaction = String()
+    var caliber = String()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,14 +102,50 @@ class HomeCGViewController: UIViewController , changeBtnImageDelegate{
             let vc:PointageViewController = storyboard?.instantiateViewController(withIdentifier: "PointageViewController") as! PointageViewController
             vc.delegate = self
             vc.placeHolder = "Caliber"
+            vc.locationDelegate = self
         
             self.navigationController?.pushViewController(vc, animated: true)
         }else if (pointageBtn.title(for: UIControlState.normal) == "ARRIVAGE STOCK"){
             let vc:PointageViewController = storyboard?.instantiateViewController(withIdentifier: "PointageViewController") as!PointageViewController
             vc.placeHolder = "Raw Material"
             vc.delegate = self
+            vc.locationDelegate = self
         
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    //MARK:- LOAD AND LOOSE LOCATIONS FROM NEXT VIEWCONTROLLER
+    func locations(loadLoaction: String, looseLocation: String, caliber: String) {
+        self.loadLocation = loadLoaction
+        self.looseLoaction = looseLocation
+        self.caliber = caliber
+    }
+    
+    //MARK:- SAVE DATA TO FIREBASE
+    func saveData(){
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
+        ref = Database.database().reference()
+        let userid = Auth.auth().currentUser?.uid
+        
+        let data:[String: AnyObject] = ["driver_name": startShiftData?.driverName as AnyObject,
+                                        "assignment_type": startShiftData?.assignmentType as AnyObject,
+                                        "mileage": startShiftData?.mileage as AnyObject,
+                                        "date": startShiftData?.date as AnyObject,
+                                        "time": startShiftData?.time as AnyObject,
+                                        "vehicle_number": startShiftData?.number as AnyObject,
+                                        "pause_reason": startShiftData?.reason as AnyObject,
+                                        "caliber": self.caliber as AnyObject,
+                                        "load_location": self.loadLocation as AnyObject,
+                                        "loose_location": self.looseLoaction as AnyObject,
+                                        "comment": self.addCommentTextField.text as AnyObject]
+        
+        ref.child(Constants.NODE_START_SHIFT).child(userid!).childByAutoId().setValue(data) { (error, databaseRef) in
+            if let error = error{
+                print(error.localizedDescription)
+            }
+            
+            HUD.hide()
         }
         
     }
@@ -110,8 +157,16 @@ class HomeCGViewController: UIViewController , changeBtnImageDelegate{
     
     //MARK:- SUBMIT BUTTON PRESSED
     @IBAction func submitBtnPressed(_ sender: UIButton) {
-        Helper.setPREF(Strings.END_SHIFT, key: UserDefaults.PREF_SHIFT_NAME)
-        self.poptoSpecificVC(viewController: HomeViewController.self)
+        if self.loadLocation == "" {
+            print(self.loadLocation)
+            HUD.flash(.label("Please select load and loose location from next screen"), onView: view, delay: 2.0) { (true) in
+                
+            }
+        } else {
+            self.saveData()
+            Helper.setPREF(Strings.END_SHIFT, key: UserDefaults.PREF_SHIFT_NAME)
+            self.poptoSpecificVC(viewController: HomeViewController.self)
+        }
     }
     
     //MARK:- POP TO SPECIFIC VIEWCONTROLLER

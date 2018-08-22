@@ -122,25 +122,34 @@ class PneusViewController: UIViewController, UITextFieldDelegate {
     
     //MARK:- SAVE PHOTOS TO FIREBASE
     func uploadMedia() {
-        HUD.show(.progress)
-        storageRef = Storage.storage().reference().child("pneus_photos")
-        print(self.image.size)
-        print(self.image)
-        if let uploadData = UIImageJPEGRepresentation(self.image, 0.5) {
-            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                if let error = error{
-                    print(error.localizedDescription)
-                    return
-                }
-                self.storageRef.downloadURL(completion: { (url, error) in
+         HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
+        if self.image.size == CGSize(width: 0, height: 0){
+            saveData()
+        } else {
+            let getDate = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            self.date = formatter.string(from: getDate)
+            let uid = Auth.auth().currentUser?.uid
+            storageRef = Storage.storage().reference().child("pneus_photos").child(uid!).child("\(self.date)").child("images")
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpg"
+            if let uploadData = UIImageJPEGRepresentation(self.image, 0.5) {
+                storageRef.putData(uploadData, metadata: metadata) { (metadata, error) in
                     if let error = error{
                         print(error.localizedDescription)
+                        return
                     }
-                    let photoUrl = url?.absoluteString
-                    self.urls = photoUrl ?? ""
-                    print(self.urls)
-                    self.saveData()
-                })
+                    self.storageRef.downloadURL(completion: { (url, error) in
+                        if let error = error{
+                            print(error.localizedDescription)
+                        }
+                        let photoUrl = url?.absoluteString
+                        self.urls = photoUrl ?? ""
+                        print(self.urls)
+                        self.saveData()
+                    })
+                }
             }
         }
         
@@ -148,7 +157,7 @@ class PneusViewController: UIViewController, UITextFieldDelegate {
     
     //MARK:- SAVE DATA TO FIREBASE
     func saveData() {
-        HUD.show(.progress)
+         HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
          ref = Database.database().reference()
         let userId = Auth.auth().currentUser?.uid
         let getDate = Date()
@@ -156,14 +165,14 @@ class PneusViewController: UIViewController, UITextFieldDelegate {
         formatter.dateFormat = "dd-MM-yyyy"
         self.date = formatter.string(from: getDate)
         
-        let pneusData: [String: Any] = ["1_ess_av_gauche": self.arrGauche[0],
-                                      "1_ess_av_droit": self.arrDroit[0],
-                                      "2_ess_av_gauche": self.arrGauche[1],
-                                      "2_ess_av_droit": self.arrDroit[1],
-                                      "1_ess_ar_gauche": self.arrGauche[2],
-                                      "1_ess_ar_droit": self.arrDroit[2],
-                                      "2_ess_ar_droit_gauche": self.arrGauche[3],
-                                      "2_ess_ar_droit_droit": self.arrDroit[3],
+        let pneusData: [String: Any] = ["1_ess_av_gauche": self.arrGauche[0].isEmpty ? "No Data" : self.arrGauche[0],
+                                        "1_ess_av_droit": self.arrDroit[0].isEmpty ? "No Data" : self.arrDroit[0],
+                                      "2_ess_av_gauche": self.arrGauche[1].isEmpty ? "No Data" : self.arrGauche[1],
+                                      "2_ess_av_droit": self.arrDroit[1].isEmpty ? "No Data" : self.arrDroit[1],
+                                      "1_ess_ar_gauche": self.arrGauche[2].isEmpty ? "No Data" : self.arrGauche[2],
+                                      "1_ess_ar_droit": self.arrDroit[2].isEmpty ? "No Data" : self.arrDroit[2],
+                                      "2_ess_ar_droit_gauche": self.arrGauche[3].isEmpty ? "No Data" : self.arrGauche[3],
+                                      "2_ess_ar_droit_droit": self.arrDroit[3].isEmpty ? "No Data" : self.arrDroit[3],
                                       "photo_url": self.urls]
         
         ref.child(Constants.NODE_MAINTENANCE).child(userId!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_PNEUS).setValue(pneusData) {(error, databaseRef) in
@@ -171,7 +180,13 @@ class PneusViewController: UIViewController, UITextFieldDelegate {
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlert(title: "Alert", message: "Saved succesfully", viewController: self)
+//            HUD.flash(.success, delay: 1.0) { finished in
+//                self.navigationController?.popViewController(animated: true)
+//            }
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
     }
 }

@@ -52,12 +52,12 @@ class LiquidLevelViewController: UIViewController {
     
     //MARK:- SAVE BUTTON PRESSED
     @IBAction func saveBtnPressed(_ sender: UIButton) {
-        textFiedValidations()
+        saveData()
     }
     
     // MARK:- SAVE DATA TO FIREBASE
     func saveData(){
-        HUD.show(.progress)
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userid = Auth.auth().currentUser?.uid
         let getDate = Date()
@@ -65,32 +65,21 @@ class LiquidLevelViewController: UIViewController {
         formatter.dateFormat = "dd-MM-yyyy"
         self.date = formatter.string(from: getDate)
         
-        let liquidLevelDetails:[String:Any] = ["engine_oil":self.engineOilTextField.text ?? "",
-                                               "hydraulic_oil":self.hydraulicsOilTextField.text ?? "",
-                                               "liquid_cooling":self.liquidCoolingTextField.text ?? "",
-                                               "directional_oil":self.directionalOilTextField.text ?? "",
-                                               "washing_machine":self.washingMachineTextField.text ?? ""]
+        let liquidLevelDetails:[String:Any] = ["engine_oil":self.engineOilTextField.text == "" ? "No Data" : self.engineOilTextField.text!,
+                                               "hydraulic_oil":self.hydraulicsOilTextField.text == "" ? "No Data" : self.hydraulicsOilTextField.text!,
+                                               "liquid_cooling":self.liquidCoolingTextField.text == "" ? "No Data" : self.liquidCoolingTextField.text!,
+                                               "directional_oil":self.directionalOilTextField.text == "" ? "No Data" : self.directionalOilTextField.text!,
+                                               "washing_machine":self.washingMachineTextField.text == "" ? "No Data" : self.washingMachineTextField.text!]
             
         ref.child(Constants.NODE_MAINTENANCE).child(userid!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_LIQUID_LEVEL).setValue(liquidLevelDetails){(error,databaseRef) in
             if let error = error{
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
     }
-    
-    // MARK:- TEXTFIELD VALIDATIONS
-    func textFiedValidations(){
-        if ((self.engineOilTextField.text?.isEmpty)! || (self.liquidCoolingTextField.text?.isEmpty)! || (hydraulicsOilTextField.text?.isEmpty)! || (self.directionalOilTextField.text?.isEmpty)! || (self.washingMachineTextField.text?.isEmpty)!){
-            
-            AppUtils.showAlert(title: "Alert", message: "All fields required", viewController: self)
-        
-        }else{
-            
-            saveData()
-        }
-    }
-    
-    
 }

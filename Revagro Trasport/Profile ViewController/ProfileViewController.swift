@@ -53,15 +53,16 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchUserProfileData()
         designUI()
     }
     
+    //MARK:- DESIGN UI
     func designUI() {
-        let revealController = SWRevealViewController()
-        revealController.tapGestureRecognizer()
-        revealController.panGestureRecognizer()
+        let revealController = revealViewController()
+        revealController?.tapGestureRecognizer().isEnabled = true
+        revealController?.panGestureRecognizer().isEnabled = true
+        revealController?.delegate = self
         let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "menu"), style: .plain, target: revealController, action: #selector(SWRevealViewController.revealToggle(_:)))
         leftBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -74,7 +75,7 @@ class ProfileViewController: UIViewController {
     
     //MARK:- FETCH USER PROFILE FROM FIREBASE
     func fetchUserProfileData() {
-        HUD.show(.progress)
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userId = "eETg0p487OZZpEtI7tuH2drTeBG2"
         
@@ -103,6 +104,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
+//MARK:- EXTENSION OF TABLEVIEW
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return profileContent.count
@@ -139,5 +141,16 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
         headerCell.nameOfUserLbl.text = name
         
         return headerCell
+    }
+}
+
+//MARK:- EXTENSION OF REVEAL VIEW CONTROLLER
+extension ProfileViewController: SWRevealViewControllerDelegate {
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == .right {
+            self.view.isUserInteractionEnabled = false
+        } else {
+            self.view.isUserInteractionEnabled = true
+        }
     }
 }

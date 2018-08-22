@@ -43,7 +43,7 @@ class MaintenanceViewController: UIViewController,CarbonTabSwipeNavigationDelega
     
     func carbonKitCustomization(){
         carbonTabSwipeNavigation.carbonSegmentedControl?.backgroundColor = RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR
-        carbonTabSwipeNavigation.setIndicatorColor(UIColor.blue)
+        carbonTabSwipeNavigation.setIndicatorColor(RevagroColors.LABEL_BACKGROUND_COLOR)
         carbonTabSwipeNavigation.carbonSegmentedControl?.setWidth(AppConstants.PORTRAIT_SCREEN_WIDTH / 2, forSegmentAt: 0)
         carbonTabSwipeNavigation.carbonSegmentedControl?.setWidth(AppConstants.PORTRAIT_SCREEN_WIDTH / 2, forSegmentAt: 1)
         
@@ -56,16 +56,24 @@ class MaintenanceViewController: UIViewController,CarbonTabSwipeNavigationDelega
     
     
     func designUI(){
-        
-        let revealController = SWRevealViewController()
-        revealController.tapGestureRecognizer()
-        revealController.panGestureRecognizer()
+        let revealController = revealViewController()
+        revealController?.tapGestureRecognizer().isEnabled = true
+        revealController?.panGestureRecognizer().isEnabled = true
+        revealController?.delegate = self
         let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "menu"), style: .plain, target: revealController, action: #selector(SWRevealViewController.revealToggle(_:)))
         leftBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBarButton
     
     }
-    
-    
-    
+}
+
+//MARK:- EXTENSION OF REVEAL VIEW CONTROLLER
+extension MaintenanceViewController: SWRevealViewControllerDelegate {
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == .right {
+            self.view.isUserInteractionEnabled = false
+        } else {
+            self.view.isUserInteractionEnabled = true
+        }
+    }
 }

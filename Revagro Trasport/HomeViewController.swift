@@ -20,12 +20,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var remainingTimeLbl: UILabel!
     @IBOutlet weak var statusView: UIView!
-    
     @IBOutlet weak var googleMapsView: UIView!
     
     var locationManager: CLLocationManager?
-    var latitude = 30.752800
-    var longitude = 76.804504
+    var latitude = 30.752800 //28.7041
+    var longitude = 76.804504 //77.1025
     var mode = "driving"
     var googleApiKey = "AIzaSyB1g2zjTP66BLGD5aVjk2K4hfP9xU3Uq0M"
     var jsonResponse = [String:Any]()
@@ -35,26 +34,35 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     class func instantiateVC() -> HomeViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        
         return controller
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         designUI()
-        let shiftStopedImage = UIImage(named: "15")
-        let commentImage = UIImage(named: "14")
-        let shiftStopedButton = UIBarButtonItem(image: shiftStopedImage, style: .plain, target: self, action: #selector(commentBtnPressed))
-        let commentButton = UIBarButtonItem(image: commentImage, style: .plain, target: self, action: #selector(shiftStoppedBtnPressed))
-        navigationItem.rightBarButtonItems = [shiftStopedButton, commentButton]
-        self.navigationItem.title = "Start Shift"
         detectLocation()
+    }
+    
+    //MARK:- VALIDATIONS
+    func validations(){
+        if shiftBtn.titleLabel?.text == Strings.END_SHIFT {
+            let shiftStopedImage = UIImage(named: "15")
+            let commentImage = UIImage(named: "14")
+            let shiftStopedButton = UIBarButtonItem(image: shiftStopedImage, style: .plain, target: self, action: #selector(commentBtnPressed))
+            let commentButton = UIBarButtonItem(image: commentImage, style: .plain, target: self, action: #selector(shiftStoppedBtnPressed))
+            navigationItem.rightBarButtonItems = [shiftStopedButton, commentButton]
+            self.navigationItem.title = "End Shift"
+            
+        } else {
+            self.navigationItem.title = "Start Shift"
+            //navigationItem.rightBarButtonItems = nil
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         mapdisplay()
     }
     
@@ -94,6 +102,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         }
     }
     
+    //MARK:- LOCATION MANAGER
     func createLocationManager(startImmediately: Bool) {
         locationManager = CLLocationManager()
         if let manager = locationManager {
@@ -105,6 +114,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             }
         }
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location manager failed with error = \(error)")
@@ -128,6 +138,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         }
     }
     
+    //MARK:- ALERT ON MAP VIEW
     func displayAlertWithTitle(_ title: String, message: String) {
         let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
         controller.addAction(UIAlertAction(title: "OK",  style: .default, handler: nil))
@@ -152,23 +163,27 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // MARK: - SETUP MAP
     func mapdisplay() {
         if locationManager != nil {
-            self.mapView.isMyLocationEnabled = true
             let myLocationCoordinate = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
-            let camera = GMSCameraPosition.camera(withTarget: myLocationCoordinate, zoom: 12.0)
+            //let myLocationCoordinate = CLLocationCoordinate2D.init(latitude: locationManager?.location?.coordinate.latitude ?? 00, longitude: locationManager?.location?.coordinate.longitude ?? 00)
+            let camera = GMSCameraPosition.camera(withTarget: myLocationCoordinate, zoom: 16.0)
             self.mapView.delegate = self
             self.mapView = GMSMapView.map(withFrame: self.googleMapsView.frame, camera: camera)
             self.mapView.camera = camera
+            self.mapView.isMyLocationEnabled = true
             self.mapView.settings.compassButton = true
             self.mapView.settings.myLocationButton = true
+            self.mapView.settings.indoorPicker = true
         }
         
         let startPoint = CLLocationCoordinate2D.init(latitude: locationManager?.location?.coordinate.latitude ?? 0.0, longitude: locationManager?.location?.coordinate.longitude ?? 0.0)
         let startMarker = GMSMarker.init(position: startPoint)
         startMarker.map = self.mapView
+        startMarker.icon = UIImage.init(named: "67 (1)")
         
-        let endPoint = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
-        let endMarker = GMSMarker(position: endPoint)
-        endMarker.map = self.mapView
+        //        let endPoint = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
+        //        let endMarker = GMSMarker(position: endPoint)
+        //        endMarker.map = self.mapView
+        //endMarker.icon = UIImage.init(named: "67 (1)")
         self.googleMapsView.addSubview(self.mapView)
         self.googleMapsView.bringSubview(toFront: self.statusView)
         self.googleMapsView.bringSubview(toFront: self.shiftBtn)
@@ -187,27 +202,34 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
-        //shiftBtn.setTitle(Helper.getPREF(UserDefaults.PREF_SHIFT_NAME) ?? "Start Shift", for: UIControlState())
+        shiftBtn.setTitle(Helper.getPREF(UserDefaults.PREF_SHIFT_NAME)?.uppercased() ?? "START SHIFT", for: UIControlState())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.validations()
+        })
     }
     
+    //MARK:- DESIGN UI
     func designUI() {
         shiftBtn.backgroundColor = UIColor(red: 56/255.0, green: 171/255.0, blue: 57/255.0, alpha: 1)
         shiftBtn.tintColor = UIColor.white
         
-        let revealController = SWRevealViewController()
-        revealController.tapGestureRecognizer()
-        revealController.panGestureRecognizer()
+        let revealController = revealViewController()
+        revealController?.tapGestureRecognizer().isEnabled = true
+        revealController?.panGestureRecognizer().isEnabled = true
+        revealController?.delegate = self
         let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "menu"), style: .plain, target: revealController, action: #selector(SWRevealViewController.revealToggle(_:)))
         leftBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
+    //MARK:- SHIFT STOP BUTTON PRESSED
     @objc func shiftStoppedBtnPressed() {
         DispatchQueue.main.async {
             _ = StopShiftViewController.instantiateVC().showVC()
         }
     }
     
+    //MARK:- COMMENT BUTTON PRESSED
     @objc func commentBtnPressed() {
         DispatchQueue.main.async {
             _ = CommentViewController.instantiateVC().showVC()
@@ -215,12 +237,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     
     @IBAction func shiftBtnPressed(_ sender: UIButton) {
-        if shiftBtn.title(for: .normal) == "Start Shift" {
+        if shiftBtn.title(for: .normal) == Strings.START_SHIFT {
             let vc = storyboard?.instantiateViewController(withIdentifier: "HomeeViewController") as! HomeeViewController
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if shiftBtn.title(for: .normal) == "End Shift" {
+        } else if shiftBtn.title(for: UIControlState()) == Strings.END_SHIFT {
             DispatchQueue.main.async {
-                _ = EndShiftViewController.instantiateVC().showVC()
+                EndShiftViewController.instantiateVC().showVC(completion: { (index) in
+                    if index == 0 {
+                        Helper.setPREF(Strings.START_SHIFT, key: UserDefaults.PREF_SHIFT_NAME)
+                        self.shiftBtn.setTitle(Strings.START_SHIFT, for: UIControlState())
+                        self.navigationItem.title = "Start Shift"
+                        self.navigationItem.rightBarButtonItems = nil
+                    }
+                })
             }
         }
     }
@@ -271,7 +300,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                                 if let points = polyLines["points"] as? String{
                                     let path = GMSPath.init(fromEncodedPath: points)
                                     let polyline = GMSPolyline(path: path)
-                                    polyline.strokeColor = UIColor.blue
+                                    polyline.strokeColor = RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR
                                     polyline.strokeWidth = 5.0
                                     polyline.map = self.mapView
                                 }
@@ -284,6 +313,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                     }
                 }
             }
+        }
+    }
+}
+
+extension HomeViewController: SWRevealViewControllerDelegate {
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == .right {
+            self.view.isUserInteractionEnabled = false
+        } else {
+            self.view.isUserInteractionEnabled = true
         }
     }
 }

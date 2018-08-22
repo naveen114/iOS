@@ -20,6 +20,28 @@ class StartShift: NSObject {
     }
 }
 
+
+class StartShiftData: NSObject {
+    var driverName:String = ""
+    var assignmentType:String = ""
+    var mileage:Int = 0
+    var date:String = ""
+    var time:String = ""
+    var number:String = ""
+    var reason:String = ""
+    
+    init(driverName: String, assignmentType: String, mileage: Int, date: String, time: String, number: String, reason: String) {
+        self.driverName = driverName
+        self.assignmentType = assignmentType
+        self.mileage = mileage
+        self.date = date
+        self.time = time
+        self.number = number
+        self.reason = reason
+    }
+}
+
+
 class PointageVC: NSObject{
     var btnOneImage:UIImage?
     init (btnOneImage:UIImage){

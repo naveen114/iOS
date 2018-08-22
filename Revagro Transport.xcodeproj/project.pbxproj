@@ -1,0 +1,997 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18338A01211D606D00DA13EB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18338A00211D606C00DA13EB /* GoogleService-Info.plist */; };
+		18498DFF21229C8300C2B8D5 /* CabinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498DFE21229C8200C2B8D5 /* CabinViewController.swift */; };
+		18498E0121229CAD00C2B8D5 /* CardansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0021229CAD00C2B8D5 /* CardansViewController.swift */; };
+		18498E0321229CC300C2B8D5 /* CarroSeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0221229CC200C2B8D5 /* CarroSeriesViewController.swift */; };
+		18498E0621229CF500C2B8D5 /* FeuxSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0521229CF500C2B8D5 /* FeuxSelectionViewController.swift */; };
+		18498E0821229D0900C2B8D5 /* FeuxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0721229D0900C2B8D5 /* FeuxViewController.swift */; };
+		18498E0A21229D1E00C2B8D5 /* FuelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0921229D1E00C2B8D5 /* FuelViewController.swift */; };
+		18498E0D21229D3D00C2B8D5 /* GraissageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0C21229D3D00C2B8D5 /* GraissageSelectionViewController.swift */; };
+		18498E0F21229D5700C2B8D5 /* GraissageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E0E21229D5700C2B8D5 /* GraissageViewController.swift */; };
+		18498E1121229D6D00C2B8D5 /* LamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1021229D6D00C2B8D5 /* LamesViewController.swift */; };
+		18498E1321229D8400C2B8D5 /* LiquidLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1221229D8400C2B8D5 /* LiquidLevelViewController.swift */; };
+		18498E1521229DBD00C2B8D5 /* MaintenanceHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1421229DBD00C2B8D5 /* MaintenanceHistoryViewController.swift */; };
+		18498E1821229E2000C2B8D5 /* PneusSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1721229E2000C2B8D5 /* PneusSelectionViewController.swift */; };
+		18498E1A21229E4000C2B8D5 /* PneusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1921229E4000C2B8D5 /* PneusViewController.swift */; };
+		18498E1C21229E5300C2B8D5 /* TruckCleaningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1B21229E5300C2B8D5 /* TruckCleaningViewController.swift */; };
+		18498E1E21229E6100C2B8D5 /* TuyauxHydraulicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1D21229E6100C2B8D5 /* TuyauxHydraulicsViewController.swift */; };
+		18498E2021229E7F00C2B8D5 /* VerinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18498E1F21229E7E00C2B8D5 /* VerinsViewController.swift */; };
+		188F322F2126CE97000F39D3 /* Term&ConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F322E2126CE96000F39D3 /* Term&ConditionsViewController.swift */; };
+		18F3815321258B100031541B /* ReasonSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F3815221258B100031541B /* ReasonSelectionViewController.swift */; };
+		5FB3F8A758C9477157AF7050 /* Pods_Revagro_Transport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83C569D896A11DE83361538 /* Pods_Revagro_Transport.framework */; };
+		DB027C0721030CE700293DF9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB027C0621030CE600293DF9 /* Constants.swift */; };
+		DB1A261F211C005300A26472 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1A261E211C005300A26472 /* LocationSelectionViewController.swift */; };
+		DB1AF3F220C117B50033F128 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1AF3F120C117B50033F128 /* AppDelegate.swift */; };
+		DB1AF3F420C117B50033F128 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1AF3F320C117B50033F128 /* ViewController.swift */; };
+		DB1AF3F720C117B50033F128 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1AF3F520C117B50033F128 /* Main.storyboard */; };
+		DB1AF3F920C117B90033F128 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB1AF3F820C117B90033F128 /* Assets.xcassets */; };
+		DB1AF3FC20C117B90033F128 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1AF3FA20C117B90033F128 /* LaunchScreen.storyboard */; };
+		DB1AF40820C174920033F128 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1AF40720C174920033F128 /* CommentViewController.swift */; };
+		DB29E48D20C53538004C703E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB29E48C20C53538004C703E /* MenuViewController.swift */; };
+		DB29E48F20C5375C004C703E /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB29E48E20C5375C004C703E /* AppUtils.swift */; };
+		DB29E49320C54203004C703E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB29E49220C54203004C703E /* ProfileViewController.swift */; };
+		DB29E49720C55D40004C703E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB29E49620C55D3F004C703E /* SWRevealViewController.m */; };
+		DB3200FC211963FF008FEA27 /* XibTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3200FB211963FF008FEA27 /* XibTableViewCell.swift */; };
+		DB9961072100B14B00411480 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB9961062100B14B00411480 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		DBA3BE5820CA3BE200465559 /* XibTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DBA3BE5620CA3BE200465559 /* XibTableViewCell.xib */; };
+		DBA3BE6120CAACE700465559 /* GrassageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3BE5F20CAACE700465559 /* GrassageTableViewCell.swift */; };
+		DBAB23DA20C797E700AB3F37 /* ShiftHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB23D920C797E700AB3F37 /* ShiftHistoryViewController.swift */; };
+		DBAB23DC20C79E7300AB3F37 /* MaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB23DB20C79E7300AB3F37 /* MaintenanceViewController.swift */; };
+		DBAB23DE20C7C7CD00AB3F37 /* AllMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB23DD20C7C7CD00AB3F37 /* AllMaintenanceViewController.swift */; };
+		DBB1F1FB20D7BEA300B82E9D /* EndShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB1F1FA20D7BEA200B82E9D /* EndShiftViewController.swift */; };
+		DBBA179A20CFEECD00BACD20 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBA179920CFEECD00BACD20 /* File.swift */; };
+		DBC387EB20D230B70047BA6B /* PointageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC387EA20D230B60047BA6B /* PointageViewController.swift */; };
+		DBC387ED20D23A160047BA6B /* HomeCGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC387EC20D23A160047BA6B /* HomeCGViewController.swift */; };
+		DBCEED5C2105E915005B82A6 /* ChargerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEED5B2105E914005B82A6 /* ChargerViewController.swift */; };
+		DBD1C38F20C259A20027988D /* StopShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1C38E20C259A10027988D /* StopShiftViewController.swift */; };
+		DBD7A95A20C64F1E007FCFE6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A95920C64F1E007FCFE6 /* Helper.swift */; };
+		DBD7A95C20C64F31007FCFE6 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A95B20C64F31007FCFE6 /* AppConstants.swift */; };
+		DBD7A95E20C64FA5007FCFE6 /* RevagroAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A95D20C64FA5007FCFE6 /* RevagroAlertController.swift */; };
+		DBD7A96020C64FDF007FCFE6 /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A95F20C64FDF007FCFE6 /* UserDefaultsConstants.swift */; };
+		DBD7A96420C6A214007FCFE6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A96320C6A213007FCFE6 /* NotificationViewController.swift */; };
+		DBD7A96620C6A75B007FCFE6 /* SynchronizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7A96520C6A75B007FCFE6 /* SynchronizationViewController.swift */; };
+		DBDECED2211AF307000A1DAB /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDECED1211AF307000A1DAB /* SelectionViewController.swift */; };
+		DBEDB78B20D5037A001D0E7D /* StartShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEDB78A20D5037A001D0E7D /* StartShift.swift */; };
+		DBF4ADC020D0D89C0070DA73 /* ShiftsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4ADBF20D0D89C0070DA73 /* ShiftsViewController.swift */; };
+		DBF4ADC620D13FE00070DA73 /* HomeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4ADC520D13FE00070DA73 /* HomeeViewController.swift */; };
+		DBF4ADC820D140CD0070DA73 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4ADC720D140CC0070DA73 /* HomeViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		18338A00211D606C00DA13EB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		18498DFE21229C8200C2B8D5 /* CabinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CabinViewController.swift; sourceTree = "<group>"; };
+		18498E0021229CAD00C2B8D5 /* CardansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardansViewController.swift; sourceTree = "<group>"; };
+		18498E0221229CC200C2B8D5 /* CarroSeriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarroSeriesViewController.swift; sourceTree = "<group>"; };
+		18498E0521229CF500C2B8D5 /* FeuxSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeuxSelectionViewController.swift; sourceTree = "<group>"; };
+		18498E0721229D0900C2B8D5 /* FeuxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeuxViewController.swift; sourceTree = "<group>"; };
+		18498E0921229D1E00C2B8D5 /* FuelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelViewController.swift; sourceTree = "<group>"; };
+		18498E0C21229D3D00C2B8D5 /* GraissageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraissageSelectionViewController.swift; sourceTree = "<group>"; };
+		18498E0E21229D5700C2B8D5 /* GraissageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraissageViewController.swift; sourceTree = "<group>"; };
+		18498E1021229D6D00C2B8D5 /* LamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LamesViewController.swift; sourceTree = "<group>"; };
+		18498E1221229D8400C2B8D5 /* LiquidLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiquidLevelViewController.swift; sourceTree = "<group>"; };
+		18498E1421229DBD00C2B8D5 /* MaintenanceHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaintenanceHistoryViewController.swift; sourceTree = "<group>"; };
+		18498E1721229E2000C2B8D5 /* PneusSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PneusSelectionViewController.swift; sourceTree = "<group>"; };
+		18498E1921229E4000C2B8D5 /* PneusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PneusViewController.swift; sourceTree = "<group>"; };
+		18498E1B21229E5300C2B8D5 /* TruckCleaningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TruckCleaningViewController.swift; sourceTree = "<group>"; };
+		18498E1D21229E6100C2B8D5 /* TuyauxHydraulicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuyauxHydraulicsViewController.swift; sourceTree = "<group>"; };
+		18498E1F21229E7E00C2B8D5 /* VerinsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerinsViewController.swift; sourceTree = "<group>"; };
+		188F322E2126CE96000F39D3 /* Term&ConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Term&ConditionsViewController.swift"; sourceTree = "<group>"; };
+		18F3815221258B100031541B /* ReasonSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReasonSelectionViewController.swift; sourceTree = "<group>"; };
+		C24B332BD0CAD2A725CB8592 /* Pods-Revagro Transport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revagro Transport.release.xcconfig"; path = "Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport.release.xcconfig"; sourceTree = "<group>"; };
+		D83C569D896A11DE83361538 /* Pods_Revagro_Transport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Revagro_Transport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB561595D6BA97B38E59736 /* Pods-Revagro Transport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Revagro Transport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport.debug.xcconfig"; sourceTree = "<group>"; };
+		DB027C0621030CE600293DF9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DB1A261E211C005300A26472 /* LocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewController.swift; sourceTree = "<group>"; };
+		DB1AF3EE20C117B50033F128 /* Revagro Transport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Revagro Transport.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB1AF3F120C117B50033F128 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB1AF3F320C117B50033F128 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB1AF3F620C117B50033F128 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB1AF3F820C117B90033F128 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB1AF3FB20C117B90033F128 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB1AF3FD20C117B90033F128 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB1AF40720C174920033F128 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		DB29E48C20C53538004C703E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		DB29E48E20C5375C004C703E /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
+		DB29E49220C54203004C703E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DB29E49420C55D3C004C703E /* Revagro Trasport-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Revagro Trasport-Bridging-Header.h"; sourceTree = "<group>"; };
+		DB29E49520C55D3E004C703E /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		DB29E49620C55D3F004C703E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		DB3200FB211963FF008FEA27 /* XibTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibTableViewCell.swift; sourceTree = "<group>"; };
+		DB9961062100B14B00411480 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DBA3BE5620CA3BE200465559 /* XibTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibTableViewCell.xib; sourceTree = "<group>"; };
+		DBA3BE5F20CAACE700465559 /* GrassageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrassageTableViewCell.swift; sourceTree = "<group>"; };
+		DBAB23D920C797E700AB3F37 /* ShiftHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftHistoryViewController.swift; sourceTree = "<group>"; };
+		DBAB23DB20C79E7300AB3F37 /* MaintenanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceViewController.swift; sourceTree = "<group>"; };
+		DBAB23DD20C7C7CD00AB3F37 /* AllMaintenanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMaintenanceViewController.swift; sourceTree = "<group>"; };
+		DBB1F1FA20D7BEA200B82E9D /* EndShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndShiftViewController.swift; sourceTree = "<group>"; };
+		DBBA179920CFEECD00BACD20 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		DBC387EA20D230B60047BA6B /* PointageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointageViewController.swift; sourceTree = "<group>"; };
+		DBC387EC20D23A160047BA6B /* HomeCGViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCGViewController.swift; sourceTree = "<group>"; };
+		DBCEED5B2105E914005B82A6 /* ChargerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerViewController.swift; sourceTree = "<group>"; };
+		DBD1C38E20C259A10027988D /* StopShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopShiftViewController.swift; sourceTree = "<group>"; };
+		DBD7A95920C64F1E007FCFE6 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		DBD7A95B20C64F31007FCFE6 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		DBD7A95D20C64FA5007FCFE6 /* RevagroAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevagroAlertController.swift; sourceTree = "<group>"; };
+		DBD7A95F20C64FDF007FCFE6 /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
+		DBD7A96320C6A213007FCFE6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		DBD7A96520C6A75B007FCFE6 /* SynchronizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizationViewController.swift; sourceTree = "<group>"; };
+		DBDECED1211AF307000A1DAB /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
+		DBEDB78A20D5037A001D0E7D /* StartShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartShift.swift; sourceTree = "<group>"; };
+		DBF4ADBF20D0D89C0070DA73 /* ShiftsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsViewController.swift; sourceTree = "<group>"; };
+		DBF4ADC520D13FE00070DA73 /* HomeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeeViewController.swift; sourceTree = "<group>"; };
+		DBF4ADC720D140CC0070DA73 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB1AF3EB20C117B50033F128 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB9961072100B14B00411480 /* CoreLocation.framework in Frameworks */,
+				5FB3F8A758C9477157AF7050 /* Pods_Revagro_Transport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18498E0421229CD500C2B8D5 /* FeuxSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0521229CF500C2B8D5 /* FeuxSelectionViewController.swift */,
+			);
+			name = FeuxSelectionViewController;
+			sourceTree = "<group>";
+		};
+		18498E0B21229D3300C2B8D5 /* GraissageSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0C21229D3D00C2B8D5 /* GraissageSelectionViewController.swift */,
+			);
+			name = GraissageSelectionViewController;
+			sourceTree = "<group>";
+		};
+		18498E1621229E1400C2B8D5 /* PneusSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1721229E2000C2B8D5 /* PneusSelectionViewController.swift */,
+			);
+			name = PneusSelectionViewController;
+			sourceTree = "<group>";
+		};
+		188F322D2126CE50000F39D3 /* Term and Condition ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				188F322E2126CE96000F39D3 /* Term&ConditionsViewController.swift */,
+			);
+			name = "Term and Condition ViewController";
+			sourceTree = "<group>";
+		};
+		18F3815121258AAF0031541B /* ReasonSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18F3815221258B100031541B /* ReasonSelectionViewController.swift */,
+			);
+			name = ReasonSelectionViewController;
+			sourceTree = "<group>";
+		};
+		2D25342EBDFBB83E750CCA42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB9961062100B14B00411480 /* CoreLocation.framework */,
+				D83C569D896A11DE83361538 /* Pods_Revagro_Transport.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F27705110C46A47C969D9CA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DAB561595D6BA97B38E59736 /* Pods-Revagro Transport.debug.xcconfig */,
+				C24B332BD0CAD2A725CB8592 /* Pods-Revagro Transport.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB1A261D211BFFCD00A26472 /* LocationSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB1A261E211C005300A26472 /* LocationSelectionViewController.swift */,
+			);
+			name = LocationSelectionViewController;
+			sourceTree = "<group>";
+		};
+		DB1AF3E520C117B50033F128 = {
+			isa = PBXGroup;
+			children = (
+				18338A00211D606C00DA13EB /* GoogleService-Info.plist */,
+				DB1AF3F120C117B50033F128 /* AppDelegate.swift */,
+				DB1AF3F020C117B50033F128 /* Revagro Trasport */,
+				DB1AF3EF20C117B50033F128 /* Products */,
+				2D25342EBDFBB83E750CCA42 /* Frameworks */,
+				5F27705110C46A47C969D9CA /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		DB1AF3EF20C117B50033F128 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB1AF3EE20C117B50033F128 /* Revagro Transport.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB1AF3F020C117B50033F128 /* Revagro Trasport */ = {
+			isa = PBXGroup;
+			children = (
+				188F322D2126CE50000F39D3 /* Term and Condition ViewController */,
+				18F3815121258AAF0031541B /* ReasonSelectionViewController */,
+				DB3E0DA920D7DDAD007ABB50 /* StoryBoard */,
+				18498E1621229E1400C2B8D5 /* PneusSelectionViewController */,
+				18498E0B21229D3300C2B8D5 /* GraissageSelectionViewController */,
+				18498E0421229CD500C2B8D5 /* FeuxSelectionViewController */,
+				DB1A261D211BFFCD00A26472 /* LocationSelectionViewController */,
+				DBDECED0211AF2BE000A1DAB /* Selection ViewController */,
+				DB3E0DA820D7DD28007ABB50 /* Carro Series ViewController */,
+				DB3E0DA720D7DD17007ABB50 /* Cabin ViewController */,
+				DB3E0DA620D7DCED007ABB50 /* Pointage ViewController */,
+				DB3E0DA520D7DAC6007ABB50 /* Home ViewController */,
+				DB3E0DA420D7DA81007ABB50 /* Cement Granual ViewController */,
+				DB3E0DA320D7D9FB007ABB50 /* Shifts ViewController */,
+				DBB1F21220D7D88500B82E9D /* Truck Cleaning ViewController */,
+				DBB1F21120D7D86300B82E9D /* Graissage ViewController */,
+				DBB1F21020D7D83200B82E9D /* Tuyaux Hydraulics ViewController */,
+				DBB1F20F20D7D7FA00B82E9D /* Cardans ViewController */,
+				DBB1F20E20D7D7E500B82E9D /* Verrins ViewController */,
+				DBB1F20D20D7D7C900B82E9D /* Lames ViewController */,
+				DBB1F20C20D7D7B000B82E9D /* Feux ViewController */,
+				DBB1F20B20D7D79900B82E9D /* Pneus ViewController */,
+				DBB1F20A20D7D78300B82E9D /* Liquid Level ViewController */,
+				DBB1F20920D7D76C00B82E9D /* End Shift ViewController */,
+				DBB1F20820D7D75100B82E9D /* Maintenance History ViewController */,
+				DBB1F20720D7D72B00B82E9D /* Fuel ViewController */,
+				DBB1F20620D7D70200B82E9D /* All Maintenance ViewController */,
+				DBB1F20520D7D6E400B82E9D /* Maintenance ViewController */,
+				DBB1F20420D7D6B300B82E9D /* Shift History ViewController */,
+				DBB1F20320D7D68A00B82E9D /* Synchronization ViewController */,
+				DBB1F20220D7D66100B82E9D /* Profile ViewController */,
+				DBB1F20120D7D64200B82E9D /* Notification ViewController */,
+				DBB1F20020D7D62200B82E9D /* Menu ViewController */,
+				DBB1F1FF20D7D60500B82E9D /* Comment ViewController */,
+				DBB1F1FE20D7D5E600B82E9D /* Stop Shift ViewController */,
+				DBB1F1FD20D7D5BB00B82E9D /* Start Shift ViewController */,
+				DBB1F1FC20D7D59300B82E9D /* Login ViewController */,
+				DBEDB79220D50E9F001D0E7D /* TableViewCells */,
+				DBEDB79120D50E6B001D0E7D /* XibFiles */,
+				DBEDB79020D50E3F001D0E7D /* swiftFiles */,
+				DBEDB78F20D50D40001D0E7D /* SWRevealViewControllers */,
+				DBEDB78E20D50D07001D0E7D /* ViewControllers */,
+				DB1AF3FD20C117B90033F128 /* Info.plist */,
+				DBCEED5B2105E914005B82A6 /* ChargerViewController.swift */,
+			);
+			path = "Revagro Trasport";
+			sourceTree = "<group>";
+		};
+		DB3E0DA320D7D9FB007ABB50 /* Shifts ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBF4ADBF20D0D89C0070DA73 /* ShiftsViewController.swift */,
+			);
+			name = "Shifts ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA420D7DA81007ABB50 /* Cement Granual ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBC387EC20D23A160047BA6B /* HomeCGViewController.swift */,
+			);
+			path = "Cement Granual ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA520D7DAC6007ABB50 /* Home ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBF4ADC520D13FE00070DA73 /* HomeeViewController.swift */,
+			);
+			name = "Home ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA620D7DCED007ABB50 /* Pointage ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBC387EA20D230B60047BA6B /* PointageViewController.swift */,
+			);
+			path = "Pointage ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA720D7DD17007ABB50 /* Cabin ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498DFE21229C8200C2B8D5 /* CabinViewController.swift */,
+			);
+			name = "Cabin ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA820D7DD28007ABB50 /* Carro Series ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0221229CC200C2B8D5 /* CarroSeriesViewController.swift */,
+			);
+			path = "Carro Series ViewController";
+			sourceTree = "<group>";
+		};
+		DB3E0DA920D7DDAD007ABB50 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				DB1AF3FA20C117B90033F128 /* LaunchScreen.storyboard */,
+				DB1AF3F520C117B50033F128 /* Main.storyboard */,
+				DB1AF3F820C117B90033F128 /* Assets.xcassets */,
+			);
+			name = StoryBoard;
+			sourceTree = "<group>";
+		};
+		DBB1F1FC20D7D59300B82E9D /* Login ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB1AF3F320C117B50033F128 /* ViewController.swift */,
+			);
+			path = "Login ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F1FD20D7D5BB00B82E9D /* Start Shift ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBF4ADC720D140CC0070DA73 /* HomeViewController.swift */,
+			);
+			name = "Start Shift ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F1FE20D7D5E600B82E9D /* Stop Shift ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBD1C38E20C259A10027988D /* StopShiftViewController.swift */,
+			);
+			path = "Stop Shift ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F1FF20D7D60500B82E9D /* Comment ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB1AF40720C174920033F128 /* CommentViewController.swift */,
+			);
+			name = "Comment ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20020D7D62200B82E9D /* Menu ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB29E48C20C53538004C703E /* MenuViewController.swift */,
+			);
+			path = "Menu ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20120D7D64200B82E9D /* Notification ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBD7A96320C6A213007FCFE6 /* NotificationViewController.swift */,
+			);
+			name = "Notification ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20220D7D66100B82E9D /* Profile ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB29E49220C54203004C703E /* ProfileViewController.swift */,
+			);
+			path = "Profile ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20320D7D68A00B82E9D /* Synchronization ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBD7A96520C6A75B007FCFE6 /* SynchronizationViewController.swift */,
+			);
+			name = "Synchronization ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20420D7D6B300B82E9D /* Shift History ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBAB23D920C797E700AB3F37 /* ShiftHistoryViewController.swift */,
+			);
+			path = "Shift History ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20520D7D6E400B82E9D /* Maintenance ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBAB23DB20C79E7300AB3F37 /* MaintenanceViewController.swift */,
+			);
+			name = "Maintenance ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20620D7D70200B82E9D /* All Maintenance ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBAB23DD20C7C7CD00AB3F37 /* AllMaintenanceViewController.swift */,
+			);
+			path = "All Maintenance ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20720D7D72B00B82E9D /* Fuel ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0921229D1E00C2B8D5 /* FuelViewController.swift */,
+			);
+			name = "Fuel ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20820D7D75100B82E9D /* Maintenance History ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1421229DBD00C2B8D5 /* MaintenanceHistoryViewController.swift */,
+			);
+			path = "Maintenance History ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20920D7D76C00B82E9D /* End Shift ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBB1F1FA20D7BEA200B82E9D /* EndShiftViewController.swift */,
+			);
+			name = "End Shift ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20A20D7D78300B82E9D /* Liquid Level ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1221229D8400C2B8D5 /* LiquidLevelViewController.swift */,
+			);
+			path = "Liquid Level ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20B20D7D79900B82E9D /* Pneus ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1921229E4000C2B8D5 /* PneusViewController.swift */,
+			);
+			name = "Pneus ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20C20D7D7B000B82E9D /* Feux ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0721229D0900C2B8D5 /* FeuxViewController.swift */,
+			);
+			path = "Feux ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20D20D7D7C900B82E9D /* Lames ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1021229D6D00C2B8D5 /* LamesViewController.swift */,
+			);
+			name = "Lames ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20E20D7D7E500B82E9D /* Verrins ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1F21229E7E00C2B8D5 /* VerinsViewController.swift */,
+			);
+			path = "Verrins ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F20F20D7D7FA00B82E9D /* Cardans ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0021229CAD00C2B8D5 /* CardansViewController.swift */,
+			);
+			name = "Cardans ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F21020D7D83200B82E9D /* Tuyaux Hydraulics ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1D21229E6100C2B8D5 /* TuyauxHydraulicsViewController.swift */,
+			);
+			path = "Tuyaux Hydraulics ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F21120D7D86300B82E9D /* Graissage ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E0E21229D5700C2B8D5 /* GraissageViewController.swift */,
+			);
+			name = "Graissage ViewController";
+			sourceTree = "<group>";
+		};
+		DBB1F21220D7D88500B82E9D /* Truck Cleaning ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18498E1B21229E5300C2B8D5 /* TruckCleaningViewController.swift */,
+			);
+			path = "Truck Cleaning ViewController";
+			sourceTree = "<group>";
+		};
+		DBDECED0211AF2BE000A1DAB /* Selection ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DBDECED1211AF307000A1DAB /* SelectionViewController.swift */,
+			);
+			name = "Selection ViewController";
+			sourceTree = "<group>";
+		};
+		DBEDB78E20D50D07001D0E7D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB29E49420C55D3C004C703E /* Revagro Trasport-Bridging-Header.h */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DBEDB78F20D50D40001D0E7D /* SWRevealViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB29E49520C55D3E004C703E /* SWRevealViewController.h */,
+				DB29E49620C55D3F004C703E /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewControllers;
+			sourceTree = "<group>";
+		};
+		DBEDB79020D50E3F001D0E7D /* swiftFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DBEDB78A20D5037A001D0E7D /* StartShift.swift */,
+				DBBA179920CFEECD00BACD20 /* File.swift */,
+				DB027C0621030CE600293DF9 /* Constants.swift */,
+				DB29E48E20C5375C004C703E /* AppUtils.swift */,
+				DBD7A95920C64F1E007FCFE6 /* Helper.swift */,
+				DBD7A95B20C64F31007FCFE6 /* AppConstants.swift */,
+				DBD7A95D20C64FA5007FCFE6 /* RevagroAlertController.swift */,
+				DBD7A95F20C64FDF007FCFE6 /* UserDefaultsConstants.swift */,
+			);
+			name = swiftFiles;
+			sourceTree = "<group>";
+		};
+		DBEDB79120D50E6B001D0E7D /* XibFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DBA3BE5620CA3BE200465559 /* XibTableViewCell.xib */,
+				DB3200FB211963FF008FEA27 /* XibTableViewCell.swift */,
+			);
+			path = XibFiles;
+			sourceTree = "<group>";
+		};
+		DBEDB79220D50E9F001D0E7D /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				DBA3BE5F20CAACE700465559 /* GrassageTableViewCell.swift */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB1AF3ED20C117B50033F128 /* Revagro Transport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB1AF40020C117B90033F128 /* Build configuration list for PBXNativeTarget "Revagro Transport" */;
+			buildPhases = (
+				C45981C19C9E8E6FE15B642F /* [CP] Check Pods Manifest.lock */,
+				DB1AF3EA20C117B50033F128 /* Sources */,
+				DB1AF3EB20C117B50033F128 /* Frameworks */,
+				DB1AF3EC20C117B50033F128 /* Resources */,
+				B8AF59D31F5C587AC75FA033 /* [CP] Embed Pods Frameworks */,
+				3D033ED564D9B00C81E86AE2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Revagro Transport";
+			productName = "Revagro Trasport";
+			productReference = DB1AF3EE20C117B50033F128 /* Revagro Transport.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB1AF3E620C117B50033F128 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = ATPL;
+				TargetAttributes = {
+					DB1AF3ED20C117B50033F128 = {
+						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 0930;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = DB1AF3E920C117B50033F128 /* Build configuration list for PBXProject "Revagro Transport" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB1AF3E520C117B50033F128;
+			productRefGroup = DB1AF3EF20C117B50033F128 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB1AF3ED20C117B50033F128 /* Revagro Transport */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB1AF3EC20C117B50033F128 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB1AF3FC20C117B90033F128 /* LaunchScreen.storyboard in Resources */,
+				DBA3BE5820CA3BE200465559 /* XibTableViewCell.xib in Resources */,
+				DB1AF3F920C117B90033F128 /* Assets.xcassets in Resources */,
+				DB1AF3F720C117B50033F128 /* Main.storyboard in Resources */,
+				18338A01211D606D00DA13EB /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D033ED564D9B00C81E86AE2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8AF59D31F5C587AC75FA033 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CarbonKit/CarbonKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQDropDownTextField/IQDropDownTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CarbonKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQDropDownTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Revagro Transport/Pods-Revagro Transport-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C45981C19C9E8E6FE15B642F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Revagro Transport-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB1AF3EA20C117B50033F128 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18498E0621229CF500C2B8D5 /* FeuxSelectionViewController.swift in Sources */,
+				18498E2021229E7F00C2B8D5 /* VerinsViewController.swift in Sources */,
+				18498E1E21229E6100C2B8D5 /* TuyauxHydraulicsViewController.swift in Sources */,
+				18F3815321258B100031541B /* ReasonSelectionViewController.swift in Sources */,
+				DB1AF40820C174920033F128 /* CommentViewController.swift in Sources */,
+				188F322F2126CE97000F39D3 /* Term&ConditionsViewController.swift in Sources */,
+				DB1AF3F420C117B50033F128 /* ViewController.swift in Sources */,
+				DBAB23DC20C79E7300AB3F37 /* MaintenanceViewController.swift in Sources */,
+				DBD7A95E20C64FA5007FCFE6 /* RevagroAlertController.swift in Sources */,
+				DBCEED5C2105E915005B82A6 /* ChargerViewController.swift in Sources */,
+				18498E0D21229D3D00C2B8D5 /* GraissageSelectionViewController.swift in Sources */,
+				DBDECED2211AF307000A1DAB /* SelectionViewController.swift in Sources */,
+				DBD1C38F20C259A20027988D /* StopShiftViewController.swift in Sources */,
+				DBC387ED20D23A160047BA6B /* HomeCGViewController.swift in Sources */,
+				18498E1821229E2000C2B8D5 /* PneusSelectionViewController.swift in Sources */,
+				18498E1521229DBD00C2B8D5 /* MaintenanceHistoryViewController.swift in Sources */,
+				DB027C0721030CE700293DF9 /* Constants.swift in Sources */,
+				18498E1C21229E5300C2B8D5 /* TruckCleaningViewController.swift in Sources */,
+				DBD7A95C20C64F31007FCFE6 /* AppConstants.swift in Sources */,
+				DBD7A96420C6A214007FCFE6 /* NotificationViewController.swift in Sources */,
+				DB29E48F20C5375C004C703E /* AppUtils.swift in Sources */,
+				DBC387EB20D230B70047BA6B /* PointageViewController.swift in Sources */,
+				DBD7A96620C6A75B007FCFE6 /* SynchronizationViewController.swift in Sources */,
+				18498DFF21229C8300C2B8D5 /* CabinViewController.swift in Sources */,
+				18498E0F21229D5700C2B8D5 /* GraissageViewController.swift in Sources */,
+				DBA3BE6120CAACE700465559 /* GrassageTableViewCell.swift in Sources */,
+				DB29E48D20C53538004C703E /* MenuViewController.swift in Sources */,
+				DB3200FC211963FF008FEA27 /* XibTableViewCell.swift in Sources */,
+				DBB1F1FB20D7BEA300B82E9D /* EndShiftViewController.swift in Sources */,
+				DBAB23DE20C7C7CD00AB3F37 /* AllMaintenanceViewController.swift in Sources */,
+				DBEDB78B20D5037A001D0E7D /* StartShift.swift in Sources */,
+				DBF4ADC820D140CD0070DA73 /* HomeViewController.swift in Sources */,
+				18498E1121229D6D00C2B8D5 /* LamesViewController.swift in Sources */,
+				DB29E49720C55D40004C703E /* SWRevealViewController.m in Sources */,
+				18498E1A21229E4000C2B8D5 /* PneusViewController.swift in Sources */,
+				DBF4ADC620D13FE00070DA73 /* HomeeViewController.swift in Sources */,
+				DB1A261F211C005300A26472 /* LocationSelectionViewController.swift in Sources */,
+				DBD7A95A20C64F1E007FCFE6 /* Helper.swift in Sources */,
+				DBD7A96020C64FDF007FCFE6 /* UserDefaultsConstants.swift in Sources */,
+				18498E0321229CC300C2B8D5 /* CarroSeriesViewController.swift in Sources */,
+				DB29E49320C54203004C703E /* ProfileViewController.swift in Sources */,
+				DBBA179A20CFEECD00BACD20 /* File.swift in Sources */,
+				18498E0821229D0900C2B8D5 /* FeuxViewController.swift in Sources */,
+				DBAB23DA20C797E700AB3F37 /* ShiftHistoryViewController.swift in Sources */,
+				DB1AF3F220C117B50033F128 /* AppDelegate.swift in Sources */,
+				DBF4ADC020D0D89C0070DA73 /* ShiftsViewController.swift in Sources */,
+				18498E1321229D8400C2B8D5 /* LiquidLevelViewController.swift in Sources */,
+				18498E0121229CAD00C2B8D5 /* CardansViewController.swift in Sources */,
+				18498E0A21229D1E00C2B8D5 /* FuelViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DB1AF3F520C117B50033F128 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB1AF3F620C117B50033F128 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DB1AF3FA20C117B90033F128 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB1AF3FB20C117B90033F128 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DB1AF3FE20C117B90033F128 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DB1AF3FF20C117B90033F128 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB1AF40120C117B90033F128 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAB561595D6BA97B38E59736 /* Pods-Revagro Transport.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S5M522F73W;
+				INFOPLIST_FILE = "Revagro Trasport/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "cc.Atpl.Revagro-Trasport";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Revagro Trasport/Revagro Trasport-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		DB1AF40220C117B90033F128 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C24B332BD0CAD2A725CB8592 /* Pods-Revagro Transport.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S5M522F73W;
+				INFOPLIST_FILE = "Revagro Trasport/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "cc.Atpl.Revagro-Trasport";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Revagro Trasport/Revagro Trasport-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB1AF3E920C117B50033F128 /* Build configuration list for PBXProject "Revagro Transport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB1AF3FE20C117B90033F128 /* Debug */,
+				DB1AF3FF20C117B90033F128 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB1AF40020C117B90033F128 /* Build configuration list for PBXNativeTarget "Revagro Transport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB1AF40120C117B90033F128 /* Debug */,
+				DB1AF40220C117B90033F128 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB1AF3E620C117B50033F128 /* Project object */;
+}

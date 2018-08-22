@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import SafariServices
 
 
 struct menuItems {
@@ -22,21 +23,19 @@ struct menuItems {
 }
 
 class TableViewCell:UITableViewCell{
-    
-    
     @IBOutlet weak var menuImage: UIImageView!
-    
     @IBOutlet weak var menuName: UILabel!
 }
 
 class MenuHeaderCell:UITableViewCell{
     
-    
 }
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, SFSafariViewControllerDelegate {
     
     @IBOutlet weak var tabelVieww: UITableView!
+    var selectedIndex = -1
+    
     
     class func instantiateVC() -> MenuViewController
     {
@@ -63,6 +62,9 @@ class MenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     
     
 }
@@ -70,18 +72,18 @@ class MenuViewController: UIViewController {
 
 extension MenuViewController: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        //return menuContent.count
-        
-        return 7
+        return 8
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell" + String(indexPath.row))
         //cell.menuName.text = menuContent[indexPath.row].menuData
         //cell.menuImage.image = menuContent[indexPath.row].menuImage
-      
-        
+        //cell?.backgroundColor = UIColor.black
+        cell?.contentView.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 30/255, alpha: 1)
+        if selectedIndex == indexPath.row {
+            cell?.contentView.backgroundColor = RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR
+        }
         return cell ?? TableViewCell()
         
     }
@@ -89,8 +91,6 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "MenuHeaderCell") as! MenuHeaderCell
-        
-        
         return headerCell
     }
     
@@ -98,10 +98,18 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate{
         return 400
         
     }
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 6{
+        self.selectedIndex = indexPath.row
+        self.tabelVieww.reloadData()
+        
+        if indexPath.row == 6 {
+            let safariVC = SFSafariViewController(url: NSURL(string: "https://www.google.com")! as URL)
+            self.present(safariVC, animated: true, completion: nil)
+            safariVC.delegate = self
+        }
+        
+        if indexPath.row == 7{
             let alert = UIAlertController(title: "Alert", message: "Are you sure?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "LOG OUT", style: .default, handler: { (action:UIAlertAction) in
                 do {
@@ -116,8 +124,22 @@ extension MenuViewController: UITableViewDataSource,UITableViewDelegate{
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    
 
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView(frame: CGRect(x: 0, y: self.tabelVieww.frame.size.height, width: self.tabelVieww.frame.size.width, height: 50))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: footerView.frame.size.width - 100, height: footerView.frame.size.height))
+        label.text = "Version 1.1"
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 25)
+        footerView.addSubview(label)
+        footerView.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 30/255, alpha: 1)
+        return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
 }
 

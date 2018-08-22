@@ -12,6 +12,8 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import PKHUD
+import Toast_Swift
+
 
 class FuelViewController: UIViewController {
     @IBOutlet weak var saveBtn: UIButton!
@@ -54,12 +56,13 @@ class FuelViewController: UIViewController {
     
     // MARK:- SAVE BUTTON PRESSED
     @IBAction func saveBtnPressed(_ sender: UIButton) {
-        validations()
+        saveData()
     }
     
     //MARK:- SAVE DATA TO FIREBASE
     func saveData(){
-        HUD.show(.progress)
+        //HUD.show(.progress)
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userid = Auth.auth().currentUser?.uid
         
@@ -68,28 +71,23 @@ class FuelViewController: UIViewController {
         formatter.dateFormat = "dd-MM-yyyy"
         self.date = formatter.string(from: getDate)
         
-        let fuelDetails:[String:Any] = ["tank_for_refueling" : self.tankForRefuelingTextField.text ?? "",
-                                        "fuel_quantity_refueled" : self.fuelQuantityRefueledTextField.text ?? "",
-                                        "tank_after_refueling" : self.tankAfterRefuelingTextField.text ?? ""]
+        let fuelDetails:[String:Any] = ["tank_for_refueling" : self.tankForRefuelingTextField.text == "" ? "No Data" : self.tankForRefuelingTextField.text!,
+                                        "fuel_quantity_refueled" : self.fuelQuantityRefueledTextField.text == "" ? "No Data" : self.fuelQuantityRefueledTextField.text!,
+                                        "tank_after_refueling" : self.tankAfterRefuelingTextField.text == "" ? "No Data" : self.tankAfterRefuelingTextField.text!]
         
         ref.child(Constants.NODE_MAINTENANCE).child(userid!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_FUEL).setValue(fuelDetails){(error,databaseRef) in
             if let error = error{
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
+           
         }
     }
     
-    // MARK:- TEXTFIELD VALIDATIONS
-    func validations(){
-        if ((self.tankForRefuelingTextField.text?.isEmpty)! || (self.fuelQuantityRefueledTextField.text?.isEmpty)! || (self.tankAfterRefuelingTextField.text?.isEmpty)!){
-            
-            AppUtils.showAlert(title: "Alert", message: "All field required", viewController: self)
-            print("empty")
-        }else{
-            saveData()
-        }
-    }
+    
     
 }

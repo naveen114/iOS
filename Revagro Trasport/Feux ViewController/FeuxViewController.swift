@@ -108,7 +108,8 @@ class FeuxViewController: UIViewController, UITextFieldDelegate {
     
     //MARK:- SAVE DATA TO FIREBASE
     func saveData() {
-        HUD.show(.progress)
+        
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userid = Auth.auth().currentUser?.uid
         let getDate = Date()
@@ -116,17 +117,20 @@ class FeuxViewController: UIViewController, UITextFieldDelegate {
         formatter.dateFormat = "dd-MM-yyyy"
         self.date = formatter.string(from: getDate)
         
-        let fuexData:[String: Any] = ["av_gauche":self.avGaucheTextField.text ?? "",
-                                     "ar_droit":self.arDroitTextField.text ?? "",
-                                     "arr_gauche":self.arrGaucheTextField.text ?? "",
-                                     "arr_droit":self.arrDroitTextField.text ?? ""]
+        let fuexData:[String: Any] = ["av_gauche":self.avGaucheTextField.text == "" ? "No Data" : self.avGaucheTextField.text!,
+                                     "ar_droit":self.arDroitTextField.text == "" ? "No Data" : self.arDroitTextField.text!,
+                                     "arr_gauche":self.arrGaucheTextField.text == "" ? "No Data" : self.arrGaucheTextField.text!,
+                                     "arr_droit":self.arrDroitTextField.text == "" ? "No Data" : self.arrDroitTextField.text!]
                                      
         ref.child(Constants.NODE_MAINTENANCE).child(userid!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_FEUX).setValue(fuexData){(error,databaseRef) in
             if let error = error{
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
     }
     

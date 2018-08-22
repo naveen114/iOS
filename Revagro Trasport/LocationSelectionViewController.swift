@@ -32,7 +32,7 @@ class LocationSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.saveBtn.layer.cornerRadius = 10
         self.saveBtn.backgroundColor = RevagroColors.SAVE_BUTTON_BACGROUND_COLOR
         let leftItem = UIBarButtonItem(image: UIImage.init(named: "1"), style: .plain, target: self, action: #selector(leftButtonClick))
         self.navigationItem.leftBarButtonItem = leftItem

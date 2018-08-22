@@ -101,6 +101,7 @@ class ViewController: UIViewController {
         } else {
             Auth.auth().signIn(withEmail:driverNameTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if error == nil{
+                    
                     let revealController = self.storyboard?.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
                     self.present(revealController, animated: true, completion: nil)
                 }
@@ -109,6 +110,7 @@ class ViewController: UIViewController {
                     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
+                    
                 }
             }
 

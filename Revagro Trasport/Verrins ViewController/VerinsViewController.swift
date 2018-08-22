@@ -58,7 +58,7 @@ class VerinsViewController: UIViewController {
     
     //MARK:- SAVE DATA TO FIREBASE
     func saveData(){
-        HUD.show(.progress)
+         HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userid = Auth.auth().currentUser?.uid
         let getDate = Date()
@@ -77,7 +77,10 @@ class VerinsViewController: UIViewController {
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
         
     }

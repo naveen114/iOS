@@ -32,7 +32,7 @@ class AppUtils {
     
     class func convertDate(_ dateString: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyyy"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.date(from: dateString)
         
         let newDateFormtter = DateFormatter()
@@ -56,7 +56,7 @@ class AppUtils {
         let date = dateFormatter.date(from: dateString)
         
         let newDateFormtter = DateFormatter()
-        newDateFormtter.dateFormat = "MMM d, yyyy"
+        newDateFormtter.dateFormat = "dd-MM-yyyy"
         return newDateFormtter.string(from: date ?? Date())
     }
 }

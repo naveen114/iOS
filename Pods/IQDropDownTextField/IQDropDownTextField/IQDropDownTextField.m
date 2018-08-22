@@ -302,36 +302,6 @@ NSInteger const IQOptionalTextFieldIndex =  -1;
 {
     [self setSelectedRow:selectedRow animated:NO];
 }
-    
-    /*- (void)setSelectedRow:(NSInteger)row animated:(BOOL)animated
-     {
-     NSInteger count = ([_itemList count] + 1);
-     if (row < count)
-     {
-     if (self.isOptionalDropDown)
-     {
-     if (row == IQOptionalTextFieldIndex)
-     {
-     super.text = @"";
-     }
-     else
-     {
-     super.text = (row == 0) ? @"" : [_itemListUI?:_itemList objectAtIndex:row-1];
-     }
-     if (row >= 0)
-     {
-     [self.pickerView selectRow:row inComponent:0 animated:animated];
-     }
-     else
-     {
-     [self.pickerView selectRow:0 inComponent:0 animated:animated];
-     }
-    }
-     else
-     { super.text = [_itemListUI?:_itemList objectAtIndex:row]; [self.pickerView selectRow:row inComponent:0 animated:animated]; } }
-     
-     }
-     */
 
 - (void)setSelectedRow:(NSInteger)row animated:(BOOL)animated
 {
@@ -348,12 +318,7 @@ NSInteger const IQOptionalTextFieldIndex =  -1;
             {
                 super.text = (row == 0) ? @"" : [_itemListUI?:_itemList objectAtIndex:row-1];
             }
-            if (row >= 0){
-                [self.pickerView selectRow:row inComponent:0 animated:animated];
-            }else{
-                [self.pickerView selectRow:0 inComponent:0 animated:animated];
-            }
-            
+            [self.pickerView selectRow:row inComponent:0 animated:animated];
         }
         else
         {

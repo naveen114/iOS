@@ -10,9 +10,7 @@ import UIKit
 
 class MaintenanceCell:UITableViewCell{
     @IBOutlet weak var innerView: UIView!
-    
     @IBOutlet weak var iconImage: UIImageView!
-    
     @IBOutlet weak var iconName: UILabel!
 }
 
@@ -36,8 +34,11 @@ class AllMaintenanceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //designUI()
-        // Do any additional setup after loading the view.
+        //gesture to hide reveal view controller on view
+        if self.revealViewController() != nil {
+            self.view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
+            self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
+        }
     }
     
     func designUI(){

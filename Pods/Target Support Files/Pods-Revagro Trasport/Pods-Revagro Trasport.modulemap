@@ -1,6 +1,0 @@
-framework module Pods_Revagro_Trasport {
-  umbrella header "Pods-Revagro Trasport-umbrella.h"
-
-  export *
-  module * { export * }
-}

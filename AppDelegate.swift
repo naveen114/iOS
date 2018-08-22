@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         UINavigationBar.appearance().barTintColor = RevagroColors.NAVIGATIONBAR_BACKGROUND_COLOR
         UINavigationBar.appearance().tintColor = RevagroColors.NAVIGATIONBAR_TITLE_COLOR
+        UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().titleTextAttributes =
             [NSAttributedStringKey.foregroundColor: UIColor.white,
              NSAttributedStringKey.font: UIFont(name: "Arial", size: 30)!]

@@ -14,12 +14,17 @@ import FirebaseStorage
 import PKHUD
 
 
+class collectionCell: UICollectionViewCell {
+    @IBOutlet weak var selectedImage: UIImageView!
+}
+
 class CarroSeriesViewController: UIViewController {
     
     @IBOutlet weak var textVieww: UITextView!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var innerView: UIView!
     @IBOutlet weak var uploadPhotoBtn: UIButton!
+    @IBOutlet weak var collectionVieww: UICollectionView!
     
     let imagePicker = UIImagePickerController()
     var ref:DatabaseReference!
@@ -28,6 +33,7 @@ class CarroSeriesViewController: UIViewController {
     var images = [UIImage]()
     var image = UIImage()
     var urls = String()
+    var arrSelectedImages:[UIImage] = []
     
     
     override func viewDidLoad() {
@@ -60,8 +66,6 @@ class CarroSeriesViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "Carroseries"
         saveBtn.backgroundColor = RevagroColors.SAVE_BUTTON_BACGROUND_COLOR
-        
-        
     }
     // MARK:- BACK BUTTON PRESSED
     @objc func backButton(){
@@ -82,7 +86,7 @@ class CarroSeriesViewController: UIViewController {
     
     // MARK:- SAVE DATA TO FIREBASE
     func saveData(){
-        HUD.show(.progress)
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
         let userid = Auth.auth().currentUser?.uid
         let getDate = Date()
@@ -90,7 +94,7 @@ class CarroSeriesViewController: UIViewController {
         formatter.dateFormat = "dd-MM-yyyy"
         self.date = formatter.string(from: getDate)
         
-        let carroseriesDetails:[String:Any] = ["comment":self.textVieww.text ?? "",
+        let carroseriesDetails:[String:Any] = ["comment":self.textVieww.text == "Add Comments.." ? "No Data" : self.textVieww.text!,
                                                "upload_photo": self.urls]
         
         ref.child(Constants.NODE_MAINTENANCE).child(userid!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_CARROSERIES).setValue(carroseriesDetails){(error,databaseRef) in
@@ -99,55 +103,61 @@ class CarroSeriesViewController: UIViewController {
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
         
     }
     
     // MARK:- UPLOAD PHOTO TO FIREBASE
     func uploadMeadia() {
-        storageRef = Storage.storage().reference().child("carroseries_images")
-        if let uploadData = UIImageJPEGRepresentation(self.image, 0.5){
-            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                if let error = error{
-                    print(error.localizedDescription)
-                    return
-                }
-                
-                self.storageRef.downloadURL(completion: { (url, error) in
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
+        if self.image.size == CGSize(width: 0, height: 0){
+            saveData()
+        } else {
+            let getDate = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            self.date = formatter.string(from: getDate)
+            let uid = Auth.auth().currentUser?.uid
+            storageRef = Storage.storage().reference().child("carroseries_uploaded_images").child(uid!).child("\(self.date)").child("images")
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpg"
+            if let uploadData = UIImageJPEGRepresentation(self.image, 0.5){
+                storageRef.putData(uploadData, metadata: metadata) { (metadata, error) in
                     if let error = error{
                         print(error.localizedDescription)
-                    }
-                    let urlOfPhoto = url?.absoluteString
-                    self.urls = urlOfPhoto!
-                    print(url!)
-                   self.saveData()
-                })
+                        return }
+                    self.storageRef.downloadURL(completion: { (url, error) in
+                        if let error = error{
+                            print(error.localizedDescription)
+                        }
+                        let urlOfPhoto = url?.absoluteString
+                        self.urls = urlOfPhoto!
+                        print(url!)
+                        HUD.hide()
+                        self.saveData()
+                    })
+                }
             }
         }
-        
-        
     }
     
-    // MARK:- TEXT FIELDS VALIDATIONS
-    func textFieldValidations(){
-        if (self.textVieww.text.isEmpty){
-            AppUtils.showAlert(title: "Alert", message: "Please add your comment", viewController: self)
-        }else{
-            //uploadPhoto()
-            uploadMeadia()
-        }
-    }
+    
+//    func deleteCarroseriesData(){
+//        storageRef = Storage.storage().reference()
+//        storageRef.child("")
+//    }
     
     // MARK:- SAVE BUTTON PRESSED
     @IBAction func saveBtnPressed(_ sender: UIButton) {
-        textFieldValidations()
+        uploadMeadia()
     }
-    
     
 }
 extension CarroSeriesViewController: UITextViewDelegate{
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if (textVieww.text == "Add Comments.."){
             textVieww.text = ""
@@ -165,6 +175,8 @@ extension CarroSeriesViewController:UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.image = pickedImage
+            self.arrSelectedImages.append(pickedImage)
+            self.collectionVieww.reloadData()
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -173,4 +185,19 @@ extension CarroSeriesViewController:UIImagePickerControllerDelegate, UINavigatio
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+extension CarroSeriesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.arrSelectedImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath)
+            as! collectionCell
+        cell.selectedImage.image = self.arrSelectedImages[indexPath.row]
+        return cell
+    }
+    
+    
 }

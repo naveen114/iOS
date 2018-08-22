@@ -10,24 +10,18 @@ import UIKit
 import IQDropDownTextField
 import FirebaseDatabase
 import Firebase
+import PKHUD
 
 protocol changeBtnImageDelegate {
     func btnImage(btnImage:UIImage)
 }
 
-class locationsModel {
-    var location1: String = ""
-    var location2: String = ""
-    var location3: String = ""
-    
-    init(location1:String, location2:String, location3:String) {
-        self.location1 = location1
-        self.location2 = location2
-        self.location3 = location3
-    }
+protocol locationDataPassing {
+    func locations(loadLoaction: String, looseLocation: String, caliber: String)
 }
 
-class PointageViewController: UIViewController {
+
+class PointageViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var innerView: UIView!
     @IBOutlet weak var loadingPaceTextField: UITextField!
@@ -46,16 +40,15 @@ class PointageViewController: UIViewController {
     var arrCaliber = [String]()
     var arrRawMaterial = [String]()
     var arrData:[String]  = []
-    
     var placeHolder: String! = ""
     var delegate: changeBtnImageDelegate?
+    var locationDelegate: locationDataPassing?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         designUI()
         caliberTextField.placeholder = placeHolder
-        
         self.loadingPaceTextField.addTarget(self, action: #selector(loadLocationTextFieldAction(_:)), for: UIControlEvents.editingDidBegin)
         self.loosePlaceTextField.addTarget(self, action: #selector(looseLocationTextFieldAction(_:)), for: UIControlEvents.editingDidBegin)
         self.caliberTextField.addTarget(self, action: #selector(caliberTextFieldAction(_:)), for: UIControlEvents.editingDidBegin)
@@ -64,6 +57,11 @@ class PointageViewController: UIViewController {
         fetchLooseLocations()
         fetchCaliberData()
         fetchMaterialData()
+    }
+    
+    //MARK:- TEXT FIELD RESIGN FIRST RESPONDER DELEGATE
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
     
     //MARK:- LOAD LOCATION TEXTFIELD PRESSED
@@ -113,6 +111,7 @@ class PointageViewController: UIViewController {
         saveButtonTopConstraint.constant = 182
     }
     
+    //MARK:- BACK BUTTON PRESSED
     @objc func backButton(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -122,17 +121,39 @@ class PointageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- VALIDATIONS ON TEXTFIELDS
+    func validations(){
+        if self.loadingPaceTextField.text == "" {
+            HUD.flash(.label("Please select loading place"), onView: view, delay: 2.0) { (true) in
+            }
+        } else if self.loosePlaceTextField.text == "" {
+            HUD.flash(.label("Please select loose location"), onView: view, delay: 2.0) { (true) in
+            }
+        } else if self.caliberTextField.text == "" {
+            if self.caliberTextField.placeholder == "Caliber"{
+                HUD.flash(.label("Please select caliber"), onView: view, delay: 2.0) { (true) in
+                }
+            } else {
+                HUD.flash(.label("Please select raw material"), onView: view, delay: 2.0) { (true) in
+                }
+            }
+        }
+    }
+    
+    //MARK:- SAVE BUTTON PRESSED
     @IBAction func saveClicked(_ sender: Any) {
+        validations()
         if (loadingPaceTextField.text != "" && loosePlaceTextField.text != "" && caliberTextField.text != ""){
-        let sendedImage = UIImage.init(named: "64")
+            let sendedImage = UIImage.init(named: "63")
             delegate?.btnImage(btnImage: sendedImage!)
+            locationDelegate?.locations(loadLoaction: self.loadingPaceTextField.text ?? "", looseLocation: self.loosePlaceTextField.text ?? "", caliber: self.caliberTextField.text ?? "")
             self.navigationController?.popViewController(animated: true)
         }
     }
     
     func fetchLoadLocations() {
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
-        
         ref.child(Constants.NODE_LOCTION).child(Constants.NODE_LOAD_LOCATION).observe(.value) { (snapshots) in
             print(snapshots)
             guard let snapshot = snapshots.children.allObjects as? [DataSnapshot] else { return }
@@ -143,13 +164,14 @@ class PointageViewController: UIViewController {
                     }
                 }
             }
+            HUD.hide()
         }
     }
     
     //MARK:- FETCH LOOSE LOCATIONS FROM FIREBASE
     func fetchLooseLocations() {
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
-        
         ref.child(Constants.NODE_LOCTION).child(Constants.NODE_LOOSE_LOCATION).observe(.value) { (snapshots) in
             print(snapshots)
             guard let snapshot = snapshots.children.allObjects as? [DataSnapshot] else { return }
@@ -160,13 +182,14 @@ class PointageViewController: UIViewController {
                     }
                 }
             }
+            HUD.hide()
         }
     }
     
     //MARK:- FETCH CALIBER FROM FIREBASE
     func fetchCaliberData(){
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
-        
         ref.child("caliber").observe(.value) { (snapshots) in
             print(snapshots)
             guard let snapshot = snapshots.children.allObjects as? [DataSnapshot] else { return }
@@ -177,13 +200,14 @@ class PointageViewController: UIViewController {
                     }
                 }
             }
+            HUD.hide()
         }
     }
     
     //MARK:- FETCH MATERIAL FROM FIREBASE
     func fetchMaterialData(){
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
         ref = Database.database().reference()
-        
         ref.child("material").observe(.value) { (snapshots) in
             print(snapshots)
             guard let snapshot = snapshots.children.allObjects as? [DataSnapshot] else { return }
@@ -195,6 +219,7 @@ class PointageViewController: UIViewController {
                     }
                 }
             }
+            HUD.hide()
         }
     }
 }
@@ -215,6 +240,7 @@ extension PointageViewController: PointageViewControllerDelegate {
     }
     
     func showCaliber() {
+        
         if (loosePlaceTextField.text != "" && loadingPaceTextField.text != "") {
             innerView.isHidden = false
             calliberViewTopConstraint.priority = UILayoutPriority.init(999)

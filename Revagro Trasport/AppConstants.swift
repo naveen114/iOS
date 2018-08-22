@@ -59,7 +59,8 @@ struct RevagroFonts{
 }
 
 struct Strings {
-    static let END_SHIFT = "End Shift"
+    static let END_SHIFT = "END SHIFT"
+    static let START_SHIFT = "START SHIFT"
 }
 
 struct Alert {

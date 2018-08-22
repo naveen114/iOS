@@ -7,17 +7,17 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import PKHUD
 
 
 class NotificationCell: UITableViewCell {
     @IBOutlet weak var innerView: UIView!
-    
     @IBOutlet weak var notificationImage: UIImageView!
-    
     @IBOutlet weak var revagroLbl: UILabel!
-    
     @IBOutlet weak var timeLbl: UILabel!
-    
     @IBOutlet weak var goodsTypeLbl: UILabel!
 }
 
@@ -31,34 +31,26 @@ class NotificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         designUI()
-        
-        
-        
     }
 
-    
-    
+    //MARK:- DESIGN UI
     func designUI(){
-        
-        let revealController = SWRevealViewController()
-        revealController.tapGestureRecognizer()
-        revealController.panGestureRecognizer()
+        let revealController = revealViewController()
+        revealController?.tapGestureRecognizer().isEnabled = true
+        revealController?.panGestureRecognizer().isEnabled = true
+        revealController?.delegate = self
         let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "menu"), style: .plain, target: revealController, action: #selector(SWRevealViewController.revealToggle(_:)))
         leftBarButton.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBarButton
-        
-       
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    
 }
 
+//MARK:- EXTENSION OF TABLE VIEW
 extension NotificationViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrTime.count
@@ -78,5 +70,16 @@ extension NotificationViewController:UITableViewDelegate, UITableViewDataSource{
         return 220
     }
     
+}
+
+//MARK:- EXTENSION OF REVEAL VIEW CONTROLLER
+extension NotificationViewController: SWRevealViewControllerDelegate {
+    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
+        if position == .right {
+            self.view.isUserInteractionEnabled = false
+        } else {
+            self.view.isUserInteractionEnabled = true
+        }
+    }
 }
 

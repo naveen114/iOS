@@ -14,14 +14,11 @@ import FirebaseDatabase
 import PKHUD
 
 class GraissageLabelCell:UITableViewCell{
-    
     @IBOutlet weak var nameLbl: UILabel!
-
 }
 
 class GraissageTextFieldCell:UITableViewCell{
     @IBOutlet weak var graissageTextField: UITextField!
-    
 }
 
 class GraissageViewController: UIViewController, UITextFieldDelegate {
@@ -74,23 +71,13 @@ class GraissageViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK:- CHECKUNCHECK BUTTON PRESSED
-    @IBAction func checkUncheckBtnPressed(_ sender: UIButton) {
-        if !sender.isSelected {
-            self.status = "OK"
-            print(status)
-        }else{
-            self.status = "Not OK"
-            print(status)
-        }
-        sender.animateView(sender)
-    }
+
     
     //MARK:- SAVE DATA TO FIREBASE
     func saveData(){
-        HUD.show(.progress)
-    ref = Database.database().reference()
-    let userid = Auth.auth().currentUser?.uid
+        HUD.show(.labeledProgress(title: nil, subtitle: "Loading...."), onView: view)
+        ref = Database.database().reference()
+        let userid = Auth.auth().currentUser?.uid
         
         let getDate = Date()
         let formatter = DateFormatter()
@@ -98,12 +85,12 @@ class GraissageViewController: UIViewController, UITextFieldDelegate {
         self.date = formatter.string(from: getDate)
         
         let graissageData: [String: Any] = ["crochet_bene":self.arrStatus[0],
-                                          "bras_securite_gauche":self.arrStatus[1],
-                                          "bras_securite_droit":self.arrStatus[2],
-                                          "ligne 1":self.arrValues[0],
-                                          "ligne 2":self.arrValues[1],
-                                          "compas":self.arrValues[2]]
-                                          
+                                            "bras_securite_gauche":self.arrStatus[1],
+                                            "bras_securite_droit":self.arrStatus[2],
+                                            "ligne 1":self.arrValues[0].isEmpty ? "No Data" : self.arrValues[0],
+                                            "ligne 2":self.arrValues[1].isEmpty ? "No Data" : self.arrValues[1],
+                                            "compas":self.arrValues[2].isEmpty ? "No Data" : self.arrValues[2]]
+        
         print(graissageData)
         ref.child(Constants.NODE_MAINTENANCE).child(userid!).child(Constants.NODE_MAINTENANCE_DATE).child("\(self.date)").child(Constants.NODE_GRAISSAGE).setValue(graissageData){(error, databaseRef) in
             
@@ -111,7 +98,10 @@ class GraissageViewController: UIViewController, UITextFieldDelegate {
                 print(error.localizedDescription)
             }
             HUD.hide()
-            AppUtils.showAlertandPopViewController(title: "Alert", message: "Saved succesfully", viewController: self)
+            HUD.flash(.labeledSuccess(title: nil, subtitle: "Saved"), onView: self.view, delay: 1.0, completion: { (true) in
+                print("saved")
+                self.navigationController?.popViewController(animated: true)
+            })
         }
     }
     
@@ -191,9 +181,24 @@ extension GraissageViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-             return 150
+            return 150
         } else {
-             return 100
+            return 100
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell:GraissageLabelCell = tableView.cellForRow(at: indexPath) as! GraissageLabelCell
+        if cell.nameLbl.backgroundColor == UIColor.groupTableViewBackground{
+            cell.nameLbl.backgroundColor = RevagroColors.LABEL_BACKGROUND_COLOR
+            cell.nameLbl.textColor = UIColor.white
+            self.arrStatus.remove(at: indexPath.row)
+            self.arrStatus.insert(true, at: indexPath.row)
+        } else {
+            cell.nameLbl.backgroundColor = UIColor.groupTableViewBackground
+            cell.nameLbl.textColor = UIColor.black
+            self.arrStatus.remove(at: indexPath.row)
+            self.arrStatus.insert(false, at: indexPath.row)
         }
     }
 }
